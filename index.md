@@ -19,28 +19,28 @@
         <th>SAC</th>
         <th>vs.</th>
         <th>CHI</th>
-        <th>:star::star:</th>
+        <th>:basketball: :basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
         <th>DEN</th>
         <th>@</th>
         <th>PHI</th>
-        <th>:star::star::star2:</th>
+        <th>:basketball: :basketball: :fire:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
         <th>CLE</th>
         <th>vs.</th>
         <th>LAC</th>
-        <th>:star::star::star2:</th>
+        <th>:basketball: :basketball: :fire:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
         <th>MIL</th>
         <th>@</th>
         <th>UTA</th>
-        <th>:star::star:</th>
+        <th>:basketball: :basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
@@ -54,7 +54,7 @@
         <th>ATL</th>
         <th>vs.</th>
         <th>POR</th>
-        <th>:star::star:</th>
+        <th>:basketball: :basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
@@ -75,35 +75,35 @@
         <th>CHA</th>
         <th>@</th>
         <th>OKC</th>
-        <th>:black_circle:</th>
+        <th>:white_circle:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
         <th>SAC</th>
         <th>vs.</th>
         <th>CHI</th>
-        <th>:star::star:</th>
+        <th>:basketball: :basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
         <th>DEN</th>
         <th>@</th>
         <th>PHI</th>
-        <th>:star::star::star2:</th>
+        <th>:basketball: :basketball: :fire:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
         <th>CLE</th>
         <th>vs.</th>
         <th>LAC</th>
-        <th>:star::star::star2:</th>
+        <th>:basketball: :basketball: :fire:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
         <th>MIL</th>
         <th>@</th>
         <th>UTA</th>
-        <th>:star::star:</th>
+        <th>:basketball: :basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
@@ -117,7 +117,7 @@
         <th>ATL</th>
         <th>vs.</th>
         <th>POR</th>
-        <th>:star::star:</th>
+        <th>:basketball: :basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
@@ -138,6 +138,6 @@
         <th>CHA</th>
         <th>@</th>
         <th>OKC</th>
-        <th>:black_circle:</th>
+        <th>:white_circle:</th>
     </tr>
 </table> 
