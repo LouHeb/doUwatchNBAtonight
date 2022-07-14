@@ -5,14 +5,14 @@
         <th>GSW</th>
         <th>vs.</th>
         <th>BOS</th>
-        <th>:star:</th>
+        <th>:basketball:</th>
     </tr>
     <tr>
         <th>2022-06-16</th>
         <th>GSW</th>
         <th>@</th>
         <th>BOS</th>
-        <th>:star:</th>
+        <th>:basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
@@ -47,7 +47,7 @@
         <th>MIN</th>
         <th>@</th>
         <th>SAS</th>
-        <th>:star:</th>
+        <th>:basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
@@ -61,14 +61,14 @@
         <th>TOR</th>
         <th>@</th>
         <th>LAL</th>
-        <th>:star:</th>
+        <th>:basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
         <th>GSW</th>
         <th>vs.</th>
         <th>WAS</th>
-        <th>:star:</th>
+        <th>:basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
@@ -110,7 +110,7 @@
         <th>MIN</th>
         <th>@</th>
         <th>SAS</th>
-        <th>:star:</th>
+        <th>:basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
@@ -124,14 +124,14 @@
         <th>TOR</th>
         <th>@</th>
         <th>LAL</th>
-        <th>:star:</th>
+        <th>:basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
         <th>GSW</th>
         <th>vs.</th>
         <th>WAS</th>
-        <th>:star:</th>
+        <th>:basketball:</th>
     </tr>
     <tr>
         <th>2022-03-14</th>
