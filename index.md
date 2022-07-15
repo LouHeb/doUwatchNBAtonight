@@ -1,106 +1,109 @@
+<html lang="en">
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,h3,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+    
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-06-16</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW @ BOS</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-06-13</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. BOS</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-06-10</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW @ BOS</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-06-08</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS vs. GSW</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-06-05</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. BOS</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-06-02</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS @ GSW</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-29</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS @ MIA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-27</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA @ BOS</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-26</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. DAL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-25</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS @ MIA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-24</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">DAL vs. GSW</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-23</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS vs. MIA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-22</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW @ DAL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-21</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA @ BOS</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-20</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. DAL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-19</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS @ MIA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-18</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. DAL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-17</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA vs. BOS</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-15</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">DAL @ PHX</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-15</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS vs. MIL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-13</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS @ MIL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-13</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. MEM</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-12</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">DAL vs. PHX</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-12</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA @ PHI</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-11</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MEM vs. GSW</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-11</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIL @ BOS</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-10</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHX vs. DAL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-10</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA vs. PHI</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-09</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. MEM</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-09</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS @ MIL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-08</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHI vs. MIA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-08</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">DAL vs. PHX</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-07</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIL vs. BOS</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-07</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. MEM</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-06</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">DAL vs. PHX</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-06</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHI vs. MIA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-04</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA vs. PHI</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-04</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHX vs. DAL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-03</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MEM vs. GSW</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-03</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS vs. MIL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-02</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHX vs. DAL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-02</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA vs. PHI</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-01</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW @ MEM</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-05-01</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIL @ BOS</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-29</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MEM @ MIN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-28</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">DAL @ UTA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-28</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHX @ NOP</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-28</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHI @ TOR</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-27</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIL vs. CHI</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-27</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. DEN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-26</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA vs. ATL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-26</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MEM vs. MIN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-26</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHX vs. NOP</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-25</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS @ BKN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-25</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">TOR @ PHI</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-25</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">DAL vs. UTA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-24</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIL @ CHI</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-24</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">DEN vs. GSW</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-24</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">NOP vs. PHX</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-24</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA @ ATL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-23</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIN vs. MEM</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-23</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">TOR vs. PHI</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-23</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">UTA vs. DAL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-23</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS @ BKN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-22</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIL @ CHI</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-22</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHX @ NOP</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-22</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">ATL vs. MIA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-21</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MEM @ MIN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-21</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">DAL @ UTA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-21</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW @ DEN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-20</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">CHI @ MIL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-20</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS vs. BKN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-20</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHI @ TOR</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-19</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MEM vs. MIN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-19</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">NOP @ PHX</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-19</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA vs. ATL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-18</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHI vs. TOR</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-18</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">DAL vs. UTA</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-18</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. DEN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-17</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIA vs. ATL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-17</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">BOS vs. BKN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">3</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-17</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIL vs. CHI</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-17</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHX vs. NOP</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">1</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-16</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">PHI vs. TOR</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-16</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">GSW vs. DEN</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">0</h3></div></div></div>
+<div class=" w3-white w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-16</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">MIN @ MEM</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
+<div class=" w3-light-grey w3-container"><div class="w3-content"><div class="w3-third w3-center"><h3 class="w3-text-blue"><b>2022-04-16</b></h3></div><div class="w3-third w3-center"><h3 class="w3-text-blue">UTA @ DAL</h3></div> <div class="w3-third w3-center"><h3 class="w3-text-blue">2</h3></div></div></div>
 
 
-## Do You Wanna Watch NBA Tonight?
-#yes
-<table>
-    <tr>
-        <th>2022-06-13</th>
-        <th>GSW vs. BOS</th>
-        <th>:basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-06-16</th>
-        <th>GSW @ BOS</th>
-        <th>:basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>SAC vs. CHI</th>
-        <th>:basketball: :basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>DEN @ PHI</th>
-        <th>:basketball: :basketball: :fire:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>CLE vs. LAC</th>
-        <th>:basketball: :basketball: :fire:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>MIL @ UTA</th>
-        <th>:basketball: :basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>MIN @ SAS</th>
-        <th>:basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>ATL vs. POR</th>
-        <th>:basketball: :basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>TOR @ LAL</th>
-        <th>:basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>GSW vs. WAS</th>
-        <th>:basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>CHA @ OKC</th>
-        <th>:white_circle:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>SAC vs. CHI</th>
-        <th>:basketball: :basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>DEN @ PHI</th>
-        <th>:basketball: :basketball: :fire:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>CLE vs. LAC</th>
-        <th>:basketball: :basketball: :fire:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>MIL @ UTA</th>
-        <th>:basketball: :basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>MIN @ SAS</th>
-        <th>:basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>ATL vs. POR</th>
-        <th>:basketball: :basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>TOR @ LAL</th>
-        <th>:basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>GSW vs. WAS</th>
-        <th>:basketball:</th>
-    </tr>
-    <tr>
-        <th>2022-03-14</th>
-        <th>CHA @ OKC</th>
-        <th>:white_circle:</th>
-    </tr>
-</table> 
+</body>
+</html>
