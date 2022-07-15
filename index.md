@@ -14,7 +14,7 @@
     </div>
 </div>
 
-[[https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png|width=10]]
 
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="10">
 
 ![This is an image](https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg)
