@@ -14,5 +14,7 @@
     </div>
 </div>
 
+![This is an image](https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png)
+
 
 ![This is an image](https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg)
