@@ -18,7 +18,7 @@ body,h1,h2,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <!-- Header -->
 <header class="w3-container w3-red w3-center" style="padding:40px 16px">
-  <h1 class="w3-margin w3-jumbo">Do You Wanna Watch NBA Tonight?</h1>
+  <h1 class="w3-margin w3-text-white w3-jumbo">Do You Wanna Watch NBA Tonight?</h1>
   <p class="w3-xlarge"><i>A spoiler free grading system for your NBA games</i></p>
   <button class="w3-button w3-blue w3-padding-large w3-large w3-margin-top"><a href="https://nbareplay.net/" target="_blank">NBA replay sites</a></button>
 </header>
@@ -56,7 +56,7 @@ body,h1,h2,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 
 <div class="w3-container w3-blue w3-center w3-padding-64">
-    <h1 class="w3-margin w3-xlarge"><a href="https://github.com/LouHeb/doUwatchNBAtonight" class="btn">View on GitHub</a></h1>
+    <h1 class="w3-margin w3-text-white w3-xlarge"><a href="https://github.com/LouHeb/doUwatchNBAtonight" class="btn">View on GitHub</a></h1>
  <p>Created by Jean Pierre Jean Pierre Product - Greatly inspirated by <a href="http://stats.inpredictable.com/nba/preCap.php" class="btn">Mike Beuoy</a></p>
 </div>
 
