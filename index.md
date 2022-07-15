@@ -24,39 +24,44 @@ body,h1,h2,h4,h5,h6 {font-family: "Lato", sans-serif}
 </header>
 
 <!-- First Grid -->
-<div class="w3-row-padding w3-padding-64 w3-container">
+<div class=" w3-white w3-container">
   <div class="w3-content">
     <div class="w3-third w3-center">
-      <h3 class="w3-text-blue">GSW vs. BOS</h3>
+      <h3 class="w3-text-blue"><b>2022-06-16</b></h3>
     </div>
-
-    <div class="w3-twothird">
+    <div class="w3-third w3-center">
+      <h3 class="w3-text-blue">GSW vs. BOS</h3>
+    </div> 
+    <div class="w3-rest w3-center">
       <h3 class="w3-text-blue">3</h3>
     </div>
   </div>
 </div>
 
 <!-- Second Grid -->
-<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class=" w3-light-grey w3-container">
   <div class="w3-content">
     <div class="w3-third w3-center">
-      <h3 class="w3-text-blue">GSW vs. BOS</h3>
+      <h3 class="w3-text-blue"><b>2022-06-16</b></h3>
     </div>
-
-    <div class="w3-twothird">
+    <div class="w3-third w3-center">
+      <h3 class="w3-text-blue">GSW vs. BOS</h3>
+    </div> 
+    <div class="w3-rest w3-center">
       <h3 class="w3-text-blue">3</h3>
-
     </div>
   </div>
 </div>
 
+
+
 <div class="w3-container w3-blue w3-center w3-padding-64">
-    <h1 class="w3-margin w3-xlarge"><a href="https://github.com/LouHeb/doUwatchNBAtonight" class="btn">View on GitHub</a></h1>
+
 </div>
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">  
-
+    <h1 class="w3-margin w3-xlarge"><a href="https://github.com/LouHeb/doUwatchNBAtonight" class="btn">View on GitHub</a></h1>
  <p>Created by Jean Pierre Jean Pierre Product - Greatly inspirated by <a href="http://stats.inpredictable.com/nba/preCap.php" class="btn">Mike Beuoy</a></p>
 </footer>
 
