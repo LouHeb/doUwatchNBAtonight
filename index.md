@@ -11,11 +11,10 @@
     <tr>
     <td>436,699</td>
     <td>February 1998</td>
-    <td style="text-align:center">112,172</td>
+    <td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"></td>
   </tr>
 </table>
 
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20">
 
 ![This is an image](https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg)
