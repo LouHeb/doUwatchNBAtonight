@@ -9,8 +9,8 @@
     <td style="text-align:center">-</td>
   </tr>
     <tr>
-    <td>436,699</td>
-    <td>February 1998</td>
+    <td style="text-align:center">2022-06-16</td>
+    <td style="text-align:center">GSW @ BOS</td>
     <td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"></td>
   </tr>
 </table>
