@@ -1,18 +1,20 @@
-<div class=" w3-white w3-container">
-    <div class="w3-content">
-        <div class="w3-third w3-center">
-            <h3 class="w3-text-blue">
-                <b>2022-06-16</b>
-            </h3>
-        </div>
-        <div class="w3-third w3-center">
-            <h3 class="w3-text-blue">GSW @ BOS</h3>
-        </div>
-        <div class="w3-third w3-center">
-            <h3 class="w3-text-blue">1</h3>
-        </div>
-    </div>
-</div>
+<table style="border:1px solid black">
+  <tr>
+    <td><b>HITS</b></td>
+    <td><b>MONTH</b></td>
+    <td><b>TOTAL INCREASE</b></td>
+  </tr>
+  <tr>
+    <td>324,497</td>
+    <td>January 1998 </td>
+    <td style="text-align:center">-</td>
+  </tr>
+    <tr>
+    <td>436,699</td>
+    <td>February 1998</td>
+    <td style="text-align:center">112,172</td>
+  </tr>
+</table>
 
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20">
