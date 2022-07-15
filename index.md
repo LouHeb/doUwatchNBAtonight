@@ -1,5 +1,4 @@
-<table style="border:1px solid black">
-  <tr>
+<table style="border:1px solid black;margin-left:auto;margin-right:auto;">  <tr>
     <td><b>HITS</b></td>
     <td><b>MONTH</b></td>
     <td><b>TOTAL INCREASE</b></td>
