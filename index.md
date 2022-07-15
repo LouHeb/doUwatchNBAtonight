@@ -56,14 +56,9 @@ body,h1,h2,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 
 <div class="w3-container w3-blue w3-center w3-padding-64">
-
-</div>
-
-<!-- Footer -->
-<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
     <h1 class="w3-margin w3-xlarge"><a href="https://github.com/LouHeb/doUwatchNBAtonight" class="btn">View on GitHub</a></h1>
  <p>Created by Jean Pierre Jean Pierre Product - Greatly inspirated by <a href="http://stats.inpredictable.com/nba/preCap.php" class="btn">Mike Beuoy</a></p>
-</footer>
+</div>
 
 
 </body>
