@@ -15,4 +15,4 @@
 </div>
 
 
-![This is an image]([https://myoctocat.com/assets/images/base-octocat.svg](https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg))
+![This is an image](https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg)
