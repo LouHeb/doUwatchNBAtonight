@@ -6,7 +6,7 @@
     <br>
     
 <center>    
-<table  style="margin: 0px auto border:1px solid black;margin-left:auto;margin-right:auto;">
+<table>
 <tr><td style="text-align:center">2022-06-16</td><td style="text-align:center">GSW @ BOS</td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"></td></tr>
 <tr><td style="text-align:center">2022-06-13</td><td style="text-align:center">GSW vs. BOS</td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"></td></tr>
 <tr><td style="text-align:center">2022-06-10</td><td style="text-align:center">GSW @ BOS</td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"></td></tr>
