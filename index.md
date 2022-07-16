@@ -7,7 +7,7 @@
     
 <center>    
 <table align="center">
-<tr><td style="text-align:center">2022-06-16</td><td style="text-align:center">GSW @ BOS</td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"></td></tr>
+<tr><td style="text-align:center">June 16th, 2022</td><td style="text-align:center">Warriors @ Celtics</td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"></td></tr>
 <tr><td style="text-align:center">2022-06-13</td><td style="text-align:center">GSW vs. BOS</td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"></td></tr>
 <tr><td style="text-align:center">2022-06-10</td><td style="text-align:center">GSW @ BOS</td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"></td></tr>
 <tr><td style="text-align:center">2022-06-08</td><td style="text-align:center">BOS vs. GSW</td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="20"></td></tr>
