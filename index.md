@@ -91,9 +91,7 @@
 <tr><td style="text-align:center">April 16th, 2022</td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/en/c/c2/Minnesota_Timberwolves_logo.svg" width="15">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="https://upload.wikimedia.org/wikipedia/en/f/f1/Memphis_Grizzlies.svg" width="15"></td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="13"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="13"></td></tr>
 <tr><td style="text-align:center">April 16th, 2022</td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/en/5/52/Utah_Jazz_logo_2022.svg" width="15">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="https://upload.wikimedia.org/wikipedia/en/9/97/Dallas_Mavericks_logo.svg" width="15"></td><td style="text-align:center"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="13"><img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Star-full.png" width="13"></td></tr>
 </table></center><br><center><img src="https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg" width="70"></center></html>
-<a href="https://www.hitwebcounter.com" target="_blank">
-<img src="https://hitwebcounter.com/counter/counter.php?page=8015987&style=0024&nbdigits=5&type=ip&initCount=0" title="Free Counter" Alt="web counter"   border="0" /></a>     
- <a href='https://acadooghostwriter.com/'>https://AcadooGhostwriter.com</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=b549e3c4b028c3fa45765f9028b5a850f0e8bb22'></script>
+<script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=b549e3c4b028c3fa45765f9028b5a850f0e8bb22'></script>
 <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/954972/t/3"></script>
                                     
                                                                        
