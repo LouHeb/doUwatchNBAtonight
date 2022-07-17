@@ -1,6 +1,6 @@
-on:qsqs
+on:
   schedule:
-    - cron: "11 21 * * *"
+    - cron: "21 21 * * *"
 
 jobs:
   build:
