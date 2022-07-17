@@ -11,7 +11,12 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.8 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install matplotlib numpy pandas datetime
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: execute py script
         run: |
           python IsItaGoodGameAPI_WNBA.py
