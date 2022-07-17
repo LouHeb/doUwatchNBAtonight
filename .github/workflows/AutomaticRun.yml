@@ -1,4 +1,4 @@
-on:
+on:qsqs
   schedule:
     - cron: "11 21 * * *"
 
