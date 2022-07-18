@@ -10,14 +10,11 @@ import time
 
 #plt.close('all')
 custom_headers = {
-    'Host': 'stats.nba.com',
-    'Connection': 'keep-alive',
-    'Cache-Control': 'max-age=0',
-    'Upgrade-Insecure-Requests': '1',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Accept-Language' : 'en-US,en;q=0.8,af;q=0.6'
+    'user-agent': ('Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'),
+    'Dnt': ('1'),
+    'Accept-Encoding': ('gzip, deflate, sdch'),
+    'Accept-Language': ('en'),
+    'origin': ('http://stats.nba.com')
 }
 
 
@@ -176,7 +173,7 @@ for league in Leagues:
     #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
     
     df = StudiedGames.get_data_frames()
-    time.sleep(0.5)    
+    time.sleep(1)    
 
     # --- Get what's already in the Notes file
     with open("index.md","r", encoding="utf-8") as f:
@@ -193,7 +190,7 @@ for league in Leagues:
         # --- Extract the play-by-play of this game
         pbp = playbyplay.PlayByPlay(game_id=LeGame, headers=custom_headers)
         dfPBP = pbp.get_data_frames()
-        time.sleep(0.5)
+        time.sleep(1)
             
         # --- Extract the Timer, QT and score margin
         Period = [int(dfPBP[0]["PERIOD"][0])]
