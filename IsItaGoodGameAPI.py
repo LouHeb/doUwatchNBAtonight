@@ -9,17 +9,15 @@ from datetime import datetime, timedelta
 import time 
 
 #plt.close('all')
-custom_headers = {
-    'Host': 'stats.nba.com',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0',
-    'Accept': 'application/json, text/plain, */*',
-    'Accept-Language': 'en-US,en;q=0.5',
-    'Referer': 'https://stats.nba.com/',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Connection': 'keep-alive',
-    'x-nba-stats-origin': 'stats',
-    'x-nba-stats-token': 'true'
+custom_headers= {
+'Host': 'stats.nba.com',
+"cache-control":"max-age=0",
+'connection': 'keep-alive',
+"accept-encoding" : "Accepflate, sdch",
+'accept-language':'he-IL,he;q=0.8,en-US;q=0.6,en;q=0.4',
+'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
 }
+
 
 #---
 #       DICTIONNARIES
@@ -172,7 +170,7 @@ from nba_api.stats.endpoints import playbyplay
 for league in Leagues:
     
     # --- Extract the games of yesterday
-    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W", headers=custom_headers, timeout=100)
+    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W", headers=custom_headers)
     #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
     
     df = StudiedGames.get_data_frames()
