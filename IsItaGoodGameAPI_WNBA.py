@@ -25,10 +25,17 @@ NoteHtml = {0:EMPTY,
             2:FULL+FULL,
             3:FULL+FULL+FULL}
 
-LogoTeams = {"ATL":"https://upload.wikimedia.org/wikipedia/en/5/54/Atlanta_Dream_logo.svg","CHI":"https://upload.wikimedia.org/wikipedia/en/f/fc/Chicago_Sky_logo.svg","CON":"https://upload.wikimedia.org/wikipedia/en/0/09/Connecticut_Sun_logo.svg",
-"DAL":"https://upload.wikimedia.org/wikipedia/en/9/95/Dallas_Wings_logo.svg","IND":"https://upload.wikimedia.org/wikipedia/en/5/54/Indiana_Fever_logo.svg","LAS":"https://upload.wikimedia.org/wikipedia/en/9/9f/Los_Angeles_Sparks_logo.svg",
-"LVA":"https://upload.wikimedia.org/wikipedia/en/f/fb/Las_Vegas_Aces_logo.svg","MIN":"https://upload.wikimedia.org/wikipedia/en/7/75/Minnesota_Lynx_logo.svg","NYL":"https://upload.wikimedia.org/wikipedia/en/a/a1/New_York_Liberty_logo.svg",
-"PHO":"https://upload.wikimedia.org/wikipedia/en/a/a6/Phoenix_Mercury_logo.svg","SEA":"https://upload.wikimedia.org/wikipedia/en/a/a0/Seattle_Storm_%282021%29_logo.svg","WAS":"https://upload.wikimedia.org/wikipedia/en/7/79/Washington_Mystics_logo.svg"}
+LogoTeams = {'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg','BKN':'https://upload.wikimedia.org/wikipedia/commons/4/44/Brooklyn_Nets_newlogo.svg','NYK':'https://upload.wikimedia.org/wikipedia/en/2/25/New_York_Knicks_logo.svg',
+'PHI':'https://upload.wikimedia.org/wikipedia/en/0/0e/Philadelphia_76ers_logo.svg','TOR':'https://upload.wikimedia.org/wikipedia/en/3/36/Toronto_Raptors_logo.svg','CHI':'https://upload.wikimedia.org/wikipedia/en/6/67/Chicago_Bulls_logo.svg',
+'CLE':'https://upload.wikimedia.org/wikipedia/en/4/4b/Cleveland_Cavaliers_logo.svg','DET':'https://upload.wikimedia.org/wikipedia/commons/7/7c/Pistons_logo17.svg','IND':'https://upload.wikimedia.org/wikipedia/en/1/1b/Indiana_Pacers.svg',
+'MIL':'https://upload.wikimedia.org/wikipedia/en/4/4a/Milwaukee_Bucks_logo.svg','ATL':'https://upload.wikimedia.org/wikipedia/en/2/24/Atlanta_Hawks_logo.svg','CHA':'https://upload.wikimedia.org/wikipedia/en/c/c4/Charlotte_Hornets_%282014%29.svg',
+'MIA':'https://upload.wikimedia.org/wikipedia/en/f/fb/Miami_Heat_logo.svg','ORL':'https://upload.wikimedia.org/wikipedia/en/1/10/Orlando_Magic_logo.svg','WAS':'https://upload.wikimedia.org/wikipedia/en/0/02/Washington_Wizards_logo.svg',
+'DEN':'https://upload.wikimedia.org/wikipedia/en/7/76/Denver_Nuggets.svg','MIN':'https://upload.wikimedia.org/wikipedia/en/c/c2/Minnesota_Timberwolves_logo.svg','OKC':'https://upload.wikimedia.org/wikipedia/en/5/5d/Oklahoma_City_Thunder.svg',
+'POR':'https://upload.wikimedia.org/wikipedia/en/2/21/Portland_Trail_Blazers_logo.svg','UTA':'https://upload.wikimedia.org/wikipedia/en/5/52/Utah_Jazz_logo_2022.svg',
+'GSW':'https://upload.wikimedia.org/wikipedia/en/0/01/Golden_State_Warriors_logo.svg','LAC':'https://upload.wikimedia.org/wikipedia/en/b/bb/Los_Angeles_Clippers_%282015%29.svg',
+'LAL':'https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg','PHX':'https://upload.wikimedia.org/wikipedia/en/d/dc/Phoenix_Suns_logo.svg','SAC':'https://upload.wikimedia.org/wikipedia/en/c/c7/SacramentoKings.svg',
+'DAL':'https://upload.wikimedia.org/wikipedia/en/9/97/Dallas_Mavericks_logo.svg','HOU':'https://upload.wikimedia.org/wikipedia/en/2/28/Houston_Rockets.svg','MEM':'https://upload.wikimedia.org/wikipedia/en/f/f1/Memphis_Grizzlies.svg',
+'NOP':'https://upload.wikimedia.org/wikipedia/en/0/0d/New_Orleans_Pelicans_logo.svg','SAS':'https://upload.wikimedia.org/wikipedia/en/a/a2/San_Antonio_Spurs.svg'}
 
 
 #---
@@ -90,7 +97,7 @@ def VictoryMargin(temps,margin):
     return(abs(margin[-1]))
     
 def OverTime(temps,margin):
-    return(temps[-1]>4*600)    
+    return(temps[-1]>4*720)    
     
     
 def Stars(temps,margin):
@@ -102,29 +109,29 @@ def Stars(temps,margin):
 #    biglead = BigestLead(temps,margin)
     
     lafin = 0
-    while temps[lafin]<(3*10+5)*60:lafin+=1
+    while temps[lafin]<(3*12+7)*60:lafin+=1
     bigleadSansFin = BigestLead(temps[:lafin],margin[:lafin])
     
     if ot:note = 3
-    elif efin>=15 and last2pos<3*10*60:note = 0
-    elif lastie>=(3*10+5)*60:
+    elif efin>=15 and last2pos<3*12*60:note = 0
+    elif lastie>=(3*12+7)*60:
         if efin<=6:note = 3
         else:note = 2
-    elif lastie<(3*10+5)*60:
+    elif lastie<(3*12+7)*60:
         if efin<=6:
             if cb>=18:note = 3
             else:note = 2
         elif efin<=10:
             if cb>=18:
-                if last2pos>=(3*10+7.5)*60:note = 3
+                if last2pos>=(3*12+9.5)*60:note = 3
                 else:note = 2
             else:
-                if last2pos>=(3*10+7.5)*60:note = 2
+                if last2pos>=(3*12+9.5)*60:note = 2
                 else:note = 1
         elif efin>10:
             if cb>=18:note = 2
             else:
-                if last2pos>=(3*10+7.5)*60:note = 2
+                if last2pos>=(3*12+9.5)*60:note = 2
                 else:note = 1
 
     if bigleadSansFin<=10 and note<3:note+=1
@@ -133,14 +140,14 @@ def Stars(temps,margin):
 
 # --- Get yesterday's date
 Today = datetime.strftime(datetime.now() - timedelta(1),"%m/%d/%Y")
-#Today = "07/10/2022"
+#Today = "01/01/2022"
 
 from nba_api.stats.endpoints import leaguegamefinder
 from nba_api.stats.endpoints import playbyplay
 
 # --- Extract the games of yesterday
-StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = '10', outcome_nullable = "W")
-#StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2022', league_id_nullable = '10', outcome_nullable = "W")
+StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = '00', outcome_nullable = "W")
+#StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = '00', outcome_nullable = "W")
 
 df = StudiedGames.get_data_frames()
 
