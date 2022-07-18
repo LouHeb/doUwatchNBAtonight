@@ -43,8 +43,8 @@ def GameName(g):
         if matchup=='@':return('<img src="'+LogoTeams[Tm1]+'" width="15">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+LogoTeams[Tm2]+'" width="15">')
         if matchup=='vs.':return('<img src="'+LogoTeams[Tm2]+'" width="15">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+LogoTeams[Tm1]+'" width="15">')
     else:
-        return(g)
-
+        if matchup=='@':return(g)
+        if matchup=='vs.':return(Tm2+' @ '+Tm1)
 
 def DateEnLettre(d):
     Y = d[:4]
@@ -251,7 +251,7 @@ for Index in range(0,len(df[0]['GAME_ID'])):
 
 if len(lines)>201:
     for l in lines[1:200]:file.write(l[0]+'\n')
-    file.write(l[-1]+'\n')
+    file.write(lines[-1][0]+'\n')
 else:
     for l in lines[1:]:file.write(l[0]+'\n')    
     
