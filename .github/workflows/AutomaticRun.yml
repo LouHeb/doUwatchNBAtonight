@@ -19,4 +19,4 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: execute py script
         run: |
-          python IsItaGoodGameAPI.py
+          python test.py
