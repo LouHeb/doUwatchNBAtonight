@@ -6,17 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd 
 from datetime import datetime, timedelta
-import time 
 
-#plt.close('all')
-custom_headers = {
-    'user-agent': ('Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'),
-    'Dnt': ('1'),
-    'Accept-Encoding': ('gzip, deflate, sdch'),
-    'Accept-Language': ('en'),
-    'origin': ('http://stats.nba.com')
-}
-
+plt.close('all')
 
 #---
 #       DICTIONNARIES
@@ -169,12 +160,11 @@ from nba_api.stats.endpoints import playbyplay
 for league in Leagues:
     
     # --- Extract the games of yesterday
-    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W", headers=custom_headers)
+    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W")
     #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
     
     df = StudiedGames.get_data_frames()
-    time.sleep(1)    
-
+    
     # --- Get what's already in the Notes file
     with open("index.md","r", encoding="utf-8") as f:
         lines = [line.strip().split("XXX") for line in f]
@@ -188,10 +178,9 @@ for league in Leagues:
         Date = df[0]['GAME_DATE'][Index]
         
         # --- Extract the play-by-play of this game
-        pbp = playbyplay.PlayByPlay(game_id=LeGame, headers=custom_headers)
+        pbp = playbyplay.PlayByPlay(game_id=LeGame)
         dfPBP = pbp.get_data_frames()
-        time.sleep(1)
-            
+                
         # --- Extract the Timer, QT and score margin
         Period = [int(dfPBP[0]["PERIOD"][0])]
         Timer = [EnSecondes(dfPBP[0]["PCTIMESTRING"][0])]
