@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd 
 from datetime import datetime, timedelta
+import time 
 
 plt.close('all')
 
@@ -164,7 +165,8 @@ for league in Leagues:
     #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
     
     df = StudiedGames.get_data_frames()
-    
+    time.sleep(0.5)    
+
     # --- Get what's already in the Notes file
     with open("index.md","r", encoding="utf-8") as f:
         lines = [line.strip().split("XXX") for line in f]
@@ -180,7 +182,8 @@ for league in Leagues:
         # --- Extract the play-by-play of this game
         pbp = playbyplay.PlayByPlay(game_id=LeGame)
         dfPBP = pbp.get_data_frames()
-                
+        time.sleep(0.5)
+            
         # --- Extract the Timer, QT and score margin
         Period = [int(dfPBP[0]["PERIOD"][0])]
         Timer = [EnSecondes(dfPBP[0]["PCTIMESTRING"][0])]
