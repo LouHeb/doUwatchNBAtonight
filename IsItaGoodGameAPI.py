@@ -9,17 +9,15 @@ from datetime import datetime, timedelta
 import time 
 
 #plt.close('all')
-custom_headers= {
+custom_headers = {
     'Host': 'stats.nba.com',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0',
-    'Accept': 'application/json, text/plain, */*',
-    'Accept-Language': 'en-US,en;q=0.5',
-    'Referer': 'https://github.com',
-    'Accept-Encoding': 'gzip, deflate, br',
-    
     'Connection': 'keep-alive',
-    'x-nba-stats-origin': 'stats',
-    'x-nba-stats-token': 'true'
+    'Cache-Control': 'max-age=0',
+    'Upgrade-Insecure-Requests': '1',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept-Language': 'en-US,en;q=0.9',
 }
 
 
@@ -174,7 +172,7 @@ from nba_api.stats.endpoints import playbyplay
 for league in Leagues:
     
     # --- Extract the games of yesterday
-    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W", headers=custom_headers)
+    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W", proxy='127.0.0.1:80', headers=custom_headers)
     #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
     
     df = StudiedGames.get_data_frames()
@@ -193,7 +191,7 @@ for league in Leagues:
         Date = df[0]['GAME_DATE'][Index]
         
         # --- Extract the play-by-play of this game
-        pbp = playbyplay.PlayByPlay(game_id=LeGame, headers=custom_headers)
+        pbp = playbyplay.PlayByPlay(game_id=LeGame, proxy='127.0.0.1:80', headers=custom_headers)
         dfPBP = pbp.get_data_frames()
         time.sleep(0.5)
             
