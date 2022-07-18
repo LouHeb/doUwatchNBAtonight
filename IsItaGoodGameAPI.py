@@ -8,7 +8,18 @@ import pandas as pd
 from datetime import datetime, timedelta
 import time 
 
-plt.close('all')
+#plt.close('all')
+custom_headers = {
+    'Host': 'stats.nba.com',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0',
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Referer': 'https://stats.nba.com/',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Connection': 'keep-alive',
+    'x-nba-stats-origin': 'stats',
+    'x-nba-stats-token': 'true'
+}
 
 #---
 #       DICTIONNARIES
@@ -161,7 +172,7 @@ from nba_api.stats.endpoints import playbyplay
 for league in Leagues:
     
     # --- Extract the games of yesterday
-    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W")
+    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W", headers=custom_headers, timeout=100)
     #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
     
     df = StudiedGames.get_data_frames()
@@ -180,7 +191,7 @@ for league in Leagues:
         Date = df[0]['GAME_DATE'][Index]
         
         # --- Extract the play-by-play of this game
-        pbp = playbyplay.PlayByPlay(game_id=LeGame)
+        pbp = playbyplay.PlayByPlay(game_id=LeGame, headers=custom_headers, timeout=100)
         dfPBP = pbp.get_data_frames()
         time.sleep(0.5)
             
