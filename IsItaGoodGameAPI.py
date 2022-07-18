@@ -193,7 +193,7 @@ for league in Leagues:
         Date = df[0]['GAME_DATE'][Index]
         
         # --- Extract the play-by-play of this game
-        pbp = playbyplay.PlayByPlay(game_id=LeGame, headers=custom_headers, timeout=100)
+        pbp = playbyplay.PlayByPlay(game_id=LeGame, headers=custom_headers)
         dfPBP = pbp.get_data_frames()
         time.sleep(0.5)
             
