@@ -10,12 +10,16 @@ import time
 
 #plt.close('all')
 custom_headers= {
-'Host': 'stats.nba.com',
-"cache-control":"max-age=0",
-'connection': 'keep-alive',
-"accept-encoding" : "Accepflate, sdch",
-'accept-language':'he-IL,he;q=0.8,en-US;q=0.6,en;q=0.4',
-'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
+    'Host': 'stats.nba.com',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0',
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Referer': 'https://github.com',
+    'Accept-Encoding': 'gzip, deflate, br',
+    
+    'Connection': 'keep-alive',
+    'x-nba-stats-origin': 'stats',
+    'x-nba-stats-token': 'true'
 }
 
 
