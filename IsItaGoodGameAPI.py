@@ -46,7 +46,6 @@ aQT = {'NBA':12,'WNBA':10}
 
 ligId = {'NBA':'00','WNBA':'10'}
 
-
 Leagues = ['WNBA','NBA']
 
 #---
@@ -157,10 +156,12 @@ from nba_api.stats.endpoints import leaguegamefinder
 from nba_api.stats.endpoints import playbyplay
 
 
+prox = {"http": 'http://103.148.178.228', "https": 'http://5.252.161.48'}
+
 for league in Leagues:
     
     # --- Extract the games of yesterday
-    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W")
+    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W",proxies = prox)
     #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
     
     df = StudiedGames.get_data_frames()
