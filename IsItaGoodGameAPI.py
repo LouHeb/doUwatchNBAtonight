@@ -156,7 +156,7 @@ from nba_api.stats.endpoints import leaguegamefinder
 from nba_api.stats.endpoints import playbyplay
 
 
-prox = {"http": 'http://103.148.178.228', "https": 'http://5.252.161.48'}
+prox = ["103.148.178.228", "5.252.161.48"]
 
 for league in Leagues:
     
