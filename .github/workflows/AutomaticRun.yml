@@ -15,8 +15,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install matplotlib numpy pandas datetime nba_api
+          pip install matplotlib numpy pandas datetime nba_api requests
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: execute py script
         run: |
-          python IsItaGoodGameAPI.py
+          python test.py
