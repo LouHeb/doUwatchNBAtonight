@@ -46,7 +46,8 @@ aQT = {'NBA':12,'WNBA':10}
 
 ligId = {'NBA':'00','WNBA':'10'}
 
-Leagues = ['WNBA','NBA']
+
+Leagues = ['NBA','WNBA']
 
 #---
 #       FUNCTIONS
@@ -155,118 +156,139 @@ Today = datetime.strftime(datetime.now() - timedelta(1),"%m/%d/%Y")
 from nba_api.stats.endpoints import leaguegamefinder
 from nba_api.stats.endpoints import playbyplay
 
+# --- Get what's already in the Notes file
+with open("index.md","r", encoding="utf-8") as f:
+    lines = [line.strip().split("XXX") for line in f]    
 
-for league in Leagues:
-    
-    # --- Extract the games of yesterday
-    StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W")
-    #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
-    
-    df = StudiedGames.get_data_frames()
-    
-    # --- Get what's already in the Notes file
-    with open("index.md","r", encoding="utf-8") as f:
-        lines = [line.strip().split("XXX") for line in f]
-        
-    # --- Calculate the Note for each game of today
+# --- Get the last run date
+M = ''
+item = 0
+Line = lines[1][0][34:]
+while Line[item]!=' ':
+    M+=Line[item]
+    item+=1
+M = {v: k for k, v in Lit_Month.items()}[M]
+item+=1
+D = ''
+while Line[item]!=',':
+    D+=Line[item]
+    item+=1
+D = D[:-2]
+item+=2
+Y = Line[item:item+4]
+
+LastDay = M+'/'+D+'/'+Y
+
+if LastDay!=Today:
     file = open("index.md","w") 
     file.write(lines[0][0]+'\n')
-    for Index in range(0,len(df[0]['GAME_ID'])):
-        LeGame = df[0]['GAME_ID'][Index]
-        Matchup = df[0]['MATCHUP'][Index]
-        Date = df[0]['GAME_DATE'][Index]
+    
+    for league in Leagues:    
+    
+        # --- Extract the games of yesterday
+        StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = LastDay,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W")
+        #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
         
-        # --- Extract the play-by-play of this game
-        pbp = playbyplay.PlayByPlay(game_id=LeGame)
-        dfPBP = pbp.get_data_frames()
-                
-        # --- Extract the Timer, QT and score margin
-        Period = [int(dfPBP[0]["PERIOD"][0])]
-        Timer = [EnSecondes(dfPBP[0]["PCTIMESTRING"][0])]
-        ScoreMargin = [0]
-        for event in range(1,len(dfPBP[0]['GAME_ID'])):
-            Period.append(int(dfPBP[0]["PERIOD"][event]))
-            Timer.append(EnSecondes(dfPBP[0]["PCTIMESTRING"][event]))
-            LeScore = dfPBP[0]["SCOREMARGIN"][event]
-            if LeScore == None:
-                ScoreMargin.append(ScoreMargin[-1])
-            elif LeScore == 'TIE':
-                ScoreMargin.append(0)
-            else:
-                ScoreMargin.append(int(LeScore))
-        
-        # --- Correct the timer to put it in overall seconds
-        OverallTimer = []
-        for j in range(0,len(Timer)):
-            Decal = sum([Timer[Period.index(x)] for x in range(1,Period[j])])
-            OverallTimer.append(Decal+Timer[Period.index(Period[j])]-Timer[j])
-        
-        # --- Calculate the useful values         
-        last_tie = LastTie(OverallTimer,ScoreMargin)
-        last_2_pos = Last2Pos(OverallTimer,ScoreMargin)
-        biggest_lead_loser = BigestLeadLoser(OverallTimer,ScoreMargin)
-        biggest_lead = BigestLead(OverallTimer,ScoreMargin)    
-        victory_margin = VictoryMargin(OverallTimer,ScoreMargin)   
-        overtime = OverTime(OverallTimer,ScoreMargin,aQT[league])
-        lanote = Stars(OverallTimer,ScoreMargin,league)
+        df = StudiedGames.get_data_frames()
     
-    
-    
-    #    file.write(Date+' '+Matchup+' '+str(lanote)+'\n')
-        file.write('<tr><td style="text-align:center">'+DateEnLettre(Date)+'</td><td style="text-align:center">'+GameName(Matchup,LOGOS[league])+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
-    
-    
-    
-    
-        # --- Calculate the derivative of the score margin
-        PtPerSec = []
-        for j in range (0,len(OverallTimer)):
-            Remainin = OverallTimer[-1]-OverallTimer[j]
-            Ecart = ScoreMargin[j]
-            if Remainin!=0:PtPerSec.append(Ecart*60/Remainin)
-        
-        End = OverallTimer[-1]
-        while OverallTimer[-1]==End:
-            del OverallTimer[-1]
             
-    #    # --- Plot the score evolution
-    #    fig, ax = plt.subplots(2,1)
-    #    fig.set_figheight(10)
-    #    fig.set_figwidth(10)
-    #    ax[0].plot(OverallTimer,ScoreMargin,'k')
+        # --- Calculate the Note for each game of today
+        for Index in range(0,len(df[0]['GAME_ID'])):
+            LeGame = df[0]['GAME_ID'][Index]
+            Matchup = df[0]['MATCHUP'][Index]
+            Date = df[0]['GAME_DATE'][Index]
+            
+            # --- Extract the play-by-play of this game
+            pbp = playbyplay.PlayByPlay(game_id=LeGame)
+            dfPBP = pbp.get_data_frames()
+                    
+            # --- Extract the Timer, QT and score margin
+            Period = [int(dfPBP[0]["PERIOD"][0])]
+            Timer = [EnSecondes(dfPBP[0]["PCTIMESTRING"][0])]
+            ScoreMargin = [0]
+            for event in range(1,len(dfPBP[0]['GAME_ID'])):
+                Period.append(int(dfPBP[0]["PERIOD"][event]))
+                Timer.append(EnSecondes(dfPBP[0]["PCTIMESTRING"][event]))
+                LeScore = dfPBP[0]["SCOREMARGIN"][event]
+                if LeScore == None:
+                    ScoreMargin.append(ScoreMargin[-1])
+                elif LeScore == 'TIE':
+                    ScoreMargin.append(0)
+                else:
+                    ScoreMargin.append(int(LeScore))
+            
+            # --- Correct the timer to put it in overall seconds
+            OverallTimer = []
+            for j in range(0,len(Timer)):
+                Decal = sum([Timer[Period.index(x)] for x in range(1,Period[j])])
+                OverallTimer.append(Decal+Timer[Period.index(Period[j])]-Timer[j])
+            
+            # --- Calculate the useful values         
+            last_tie = LastTie(OverallTimer,ScoreMargin)
+            last_2_pos = Last2Pos(OverallTimer,ScoreMargin)
+            biggest_lead_loser = BigestLeadLoser(OverallTimer,ScoreMargin)
+            biggest_lead = BigestLead(OverallTimer,ScoreMargin)    
+            victory_margin = VictoryMargin(OverallTimer,ScoreMargin)   
+            overtime = OverTime(OverallTimer,ScoreMargin,aQT[league])
+            lanote = Stars(OverallTimer,ScoreMargin,league)
+        
+        
+        
+        #    file.write(Date+' '+Matchup+' '+str(lanote)+'\n')
+            file.write('<tr><td style="text-align:center">'+DateEnLettre(Date)+'</td><td style="text-align:center">'+GameName(Matchup,LOGOS[league])+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
+        
+        
+        
     #    
-    #    ax[0].set_title(Matchup+' on '+Date+' - id'+LeGame,fontsize = 15)
-    #    if Matchup[4]=='@':
-    #        ax[0].text(-150,0.5,Matchup[-3:],color = 'salmon')
-    #        ax[0].text(-150,-1,Matchup[:3],color = 'salmon')
-    #    else:
-    #        ax[0].text(-150,0.5,Matchup[:3],color = 'salmon')
-    #        ax[0].text(-150,-1,Matchup[-3:],color = 'salmon')    
-    #    ax[0].plot([-150,0],[0,0],':',color='salmon')
-    #    ax[0].plot([0,OverallTimer[-1]],[0,0],'salmon')
-    #    for j in range(2,Period[-1]+1):
-    #        Decal = sum([Timer[Period.index(x)] for x in range(1,j)])
-    #        ax[0].plot([Decal,Decal],[np.min(ScoreMargin),np.max(ScoreMargin)],'salmon')
-    #    ax[0].grid(axis='y')
-    #    ax[0].axis([-50,OverallTimer[-1]+50,-15,15])
-    #    ax[0].set_xlabel('Time (sec)',fontsize = 15)
-    #    ax[0].set_ylabel('Ecart',fontsize = 15)
-    #    ax[0].text(0,20,'EcartFinal:'+str(victory_margin),color = 'salmon')
-    #    ax[0].text(500,20,'OT ?:'+str(overtime),color = 'salmon')
-    #    ax[0].text(1000,20,'LastTie:'+str(last_tie//60)+':'+str(last_tie%60),color = 'salmon')
-    #    ax[0].text(1500,20,'Last2Po:'+str(last_2_pos//60)+':'+str(last_2_pos%60),color = 'salmon')
-    #    ax[0].text(2000,20,'BigLeadLoser:'+str(biggest_lead_loser),color = 'salmon')
-    #    ax[0].text(2500,20,'BigLead:'+str(biggest_lead),color = 'salmon')
-    #    ax[0].text(0,17.5,'Note = '+str(lanote),color = 'red')
-    #    
-    #    ax[1].plot(OverallTimer,PtPerSec,'g')
-    #
-    #    ax[1].grid(axis='y')
-    #    ax[1].axis([-50,OverallTimer[-1]+50,-5,5])
-    #    ax[1].set_xlabel('Time (sec)',fontsize = 15)
-    #    ax[1].set_ylabel('Pts per Min to egalize',fontsize = 15)
-    #    fig.savefig(Date+Matchup+'.png')
-    #    plt.close()
+    #        # --- Calculate the derivative of the score margin
+    #        PtPerSec = []
+    #        for j in range (0,len(OverallTimer)):
+    #            Remainin = OverallTimer[-1]-OverallTimer[j]
+    #            Ecart = ScoreMargin[j]
+    #            if Remainin!=0:PtPerSec.append(Ecart*60/Remainin)
+    #        
+    #        End = OverallTimer[-1]
+    #        while OverallTimer[-1]==End:
+    #            del OverallTimer[-1]
+                
+        #    # --- Plot the score evolution
+        #    fig, ax = plt.subplots(2,1)
+        #    fig.set_figheight(10)
+        #    fig.set_figwidth(10)
+        #    ax[0].plot(OverallTimer,ScoreMargin,'k')
+        #    
+        #    ax[0].set_title(Matchup+' on '+Date+' - id'+LeGame,fontsize = 15)
+        #    if Matchup[4]=='@':
+        #        ax[0].text(-150,0.5,Matchup[-3:],color = 'salmon')
+        #        ax[0].text(-150,-1,Matchup[:3],color = 'salmon')
+        #    else:
+        #        ax[0].text(-150,0.5,Matchup[:3],color = 'salmon')
+        #        ax[0].text(-150,-1,Matchup[-3:],color = 'salmon')    
+        #    ax[0].plot([-150,0],[0,0],':',color='salmon')
+        #    ax[0].plot([0,OverallTimer[-1]],[0,0],'salmon')
+        #    for j in range(2,Period[-1]+1):
+        #        Decal = sum([Timer[Period.index(x)] for x in range(1,j)])
+        #        ax[0].plot([Decal,Decal],[np.min(ScoreMargin),np.max(ScoreMargin)],'salmon')
+        #    ax[0].grid(axis='y')
+        #    ax[0].axis([-50,OverallTimer[-1]+50,-15,15])
+        #    ax[0].set_xlabel('Time (sec)',fontsize = 15)
+        #    ax[0].set_ylabel('Ecart',fontsize = 15)
+        #    ax[0].text(0,20,'EcartFinal:'+str(victory_margin),color = 'salmon')
+        #    ax[0].text(500,20,'OT ?:'+str(overtime),color = 'salmon')
+        #    ax[0].text(1000,20,'LastTie:'+str(last_tie//60)+':'+str(last_tie%60),color = 'salmon')
+        #    ax[0].text(1500,20,'Last2Po:'+str(last_2_pos//60)+':'+str(last_2_pos%60),color = 'salmon')
+        #    ax[0].text(2000,20,'BigLeadLoser:'+str(biggest_lead_loser),color = 'salmon')
+        #    ax[0].text(2500,20,'BigLead:'+str(biggest_lead),color = 'salmon')
+        #    ax[0].text(0,17.5,'Note = '+str(lanote),color = 'red')
+        #    
+        #    ax[1].plot(OverallTimer,PtPerSec,'g')
+        #
+        #    ax[1].grid(axis='y')
+        #    ax[1].axis([-50,OverallTimer[-1]+50,-5,5])
+        #    ax[1].set_xlabel('Time (sec)',fontsize = 15)
+        #    ax[1].set_ylabel('Pts per Min to egalize',fontsize = 15)
+        #    fig.savefig(Date+Matchup+'.png')
+        #    plt.close()
     
     if len(lines)>201:
         for l in lines[1:200]:file.write(l[0]+'\n')
@@ -277,18 +299,18 @@ for league in Leagues:
     #file.write(</table></center><br><center><img src="https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg" width="70"></center></html><center><script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=b549e3c4b028c3fa45765f9028b5a850f0e8bb22'></script><script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/954972/t/3"></script></center></html>')
     file.close()
     
-    
-    
-    
-    
-    ## --- Write an extraction in a text file
-    #file = open("DATA.txt","w") 
-    #for col in dfPBP[0]:
-    #    file.write(col+'\t')
-    #file.write('\n')
-    #for game in range(0,len(dfPBP[0]['GAME_ID'])):
-    #    for col in dfPBP[0]:
-    #        file.write(str(dfPBP[0][col][game])+'\t')
-    #    file.write('\n')
-    #file.close()
+        
+        
+        
+        
+        ## --- Write an extraction in a text file
+        #file = open("DATA.txt","w") 
+        #for col in dfPBP[0]:
+        #    file.write(col+'\t')
+        #file.write('\n')
+        #for game in range(0,len(dfPBP[0]['GAME_ID'])):
+        #    for col in dfPBP[0]:
+        #        file.write(str(dfPBP[0][col][game])+'\t')
+        #    file.write('\n')
+        #file.close()
 
