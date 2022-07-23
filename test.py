@@ -19,3 +19,4 @@ v2_api_url = ("https://stats.nba.com/stats/playbyplayv2?"f"EndPeriod=14&GameID={
 
 v2_rep = requests.get(v2_api_url, headers=USER_AGENT)
 v2_dict = v2_rep.json()
+print(v2_dict['resultSets'][0]['rowSet'][34])
