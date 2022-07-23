@@ -5,8 +5,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd 
+import os
 from datetime import datetime, timedelta
 
+os.chdir("github/doUwatchNBAtonight/")
 plt.close('all')
 
 #---
@@ -181,7 +183,7 @@ LastDay = M+'/'+D+'/'+Y
 LastDayp1 = datetime.strftime(datetime.strptime(LastDay, "%m/%d/%Y") + timedelta(1),"%m/%d/%Y")
 
 if LastDay!=Today:
-    file = open("github/doUwatchNBAtonight/index.md","w") 
+    file = open("index.md","w") 
     file.write(lines[0][0]+'\n')
     
     for league in Leagues:    
