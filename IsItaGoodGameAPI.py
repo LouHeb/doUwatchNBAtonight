@@ -2,7 +2,6 @@
 #       IMPORT LIBRARIES
 #---
 
-import os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd 
@@ -158,7 +157,7 @@ from nba_api.stats.endpoints import leaguegamefinder
 from nba_api.stats.endpoints import playbyplay
 
 # --- Get what's already in the Notes file
-with open("github/doUwatchNBAtonight/index.md","r", encoding="utf-8") as f:
+with open("index.md","r", encoding="utf-8") as f:
     lines = [line.strip().split("XXX") for line in f]    
 
 # --- Get the last run date
