@@ -181,7 +181,7 @@ LastDay = M+'/'+D+'/'+Y
 LastDayp1 = datetime.strftime(datetime.strptime(LastDay, "%m/%d/%Y") + timedelta(1),"%m/%d/%Y")
 
 if LastDay!=Today:
-    file = open("index.md","w") 
+    file = open("github/doUwatchNBAtonight/index.md","w") 
     file.write(lines[0][0]+'\n')
     
     for league in Leagues:    
