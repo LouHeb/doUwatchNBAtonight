@@ -8,7 +8,7 @@ import pandas as pd
 import os
 from datetime import datetime, timedelta
 
-os.chdir("github/doUwatchNBAtonight/")
+#os.chdir("github/doUwatchNBAtonight/")
 plt.close('all')
 
 #---
