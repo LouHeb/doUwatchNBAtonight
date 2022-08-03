@@ -24,15 +24,15 @@ NoteHtml = {0:EMPTY,
             2:FULL+FULL,
             3:FULL+FULL+FULL}
 
-LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg','BKN':'https://upload.wikimedia.org/wikipedia/commons/4/44/Brooklyn_Nets_newlogo.svg','NYK':'https://upload.wikimedia.org/wikipedia/en/2/25/New_York_Knicks_logo.svg',
+LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg','BRK':'https://upload.wikimedia.org/wikipedia/commons/4/44/Brooklyn_Nets_newlogo.svg','NYK':'https://upload.wikimedia.org/wikipedia/en/2/25/New_York_Knicks_logo.svg',
 'PHI':'https://upload.wikimedia.org/wikipedia/en/0/0e/Philadelphia_76ers_logo.svg','TOR':'https://upload.wikimedia.org/wikipedia/en/3/36/Toronto_Raptors_logo.svg','CHI':'https://upload.wikimedia.org/wikipedia/en/6/67/Chicago_Bulls_logo.svg',
 'CLE':'https://upload.wikimedia.org/wikipedia/en/4/4b/Cleveland_Cavaliers_logo.svg','DET':'https://upload.wikimedia.org/wikipedia/commons/7/7c/Pistons_logo17.svg','IND':'https://upload.wikimedia.org/wikipedia/en/1/1b/Indiana_Pacers.svg',
-'MIL':'https://upload.wikimedia.org/wikipedia/en/4/4a/Milwaukee_Bucks_logo.svg','ATL':'https://upload.wikimedia.org/wikipedia/en/2/24/Atlanta_Hawks_logo.svg','CHA':'https://upload.wikimedia.org/wikipedia/en/c/c4/Charlotte_Hornets_%282014%29.svg',
+'MIL':'https://upload.wikimedia.org/wikipedia/en/4/4a/Milwaukee_Bucks_logo.svg','ATL':'https://upload.wikimedia.org/wikipedia/en/2/24/Atlanta_Hawks_logo.svg','CHO':'https://upload.wikimedia.org/wikipedia/en/c/c4/Charlotte_Hornets_%282014%29.svg',
 'MIA':'https://upload.wikimedia.org/wikipedia/en/f/fb/Miami_Heat_logo.svg','ORL':'https://upload.wikimedia.org/wikipedia/en/1/10/Orlando_Magic_logo.svg','WAS':'https://upload.wikimedia.org/wikipedia/en/0/02/Washington_Wizards_logo.svg',
 'DEN':'https://upload.wikimedia.org/wikipedia/en/7/76/Denver_Nuggets.svg','MIN':'https://upload.wikimedia.org/wikipedia/en/c/c2/Minnesota_Timberwolves_logo.svg','OKC':'https://upload.wikimedia.org/wikipedia/en/5/5d/Oklahoma_City_Thunder.svg',
 'POR':'https://upload.wikimedia.org/wikipedia/en/2/21/Portland_Trail_Blazers_logo.svg','UTA':'https://upload.wikimedia.org/wikipedia/en/5/52/Utah_Jazz_logo_2022.svg',
 'GSW':'https://upload.wikimedia.org/wikipedia/en/0/01/Golden_State_Warriors_logo.svg','LAC':'https://upload.wikimedia.org/wikipedia/en/b/bb/Los_Angeles_Clippers_%282015%29.svg',
-'LAL':'https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg','PHX':'https://upload.wikimedia.org/wikipedia/en/d/dc/Phoenix_Suns_logo.svg','SAC':'https://upload.wikimedia.org/wikipedia/en/c/c7/SacramentoKings.svg',
+'LAL':'https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg','PHO':'https://upload.wikimedia.org/wikipedia/en/d/dc/Phoenix_Suns_logo.svg','SAC':'https://upload.wikimedia.org/wikipedia/en/c/c7/SacramentoKings.svg',
 'DAL':'https://upload.wikimedia.org/wikipedia/en/9/97/Dallas_Mavericks_logo.svg','HOU':'https://upload.wikimedia.org/wikipedia/en/2/28/Houston_Rockets.svg','MEM':'https://upload.wikimedia.org/wikipedia/en/f/f1/Memphis_Grizzlies.svg',
 'NOP':'https://upload.wikimedia.org/wikipedia/en/0/0d/New_Orleans_Pelicans_logo.svg','SAS':'https://upload.wikimedia.org/wikipedia/en/a/a2/San_Antonio_Spurs.svg'},
 'WNBA':{"ATL":"https://upload.wikimedia.org/wikipedia/en/5/54/Atlanta_Dream_logo.svg","CHI":"https://upload.wikimedia.org/wikipedia/en/f/fc/Chicago_Sky_logo.svg","CON":"https://upload.wikimedia.org/wikipedia/en/0/09/Connecticut_Sun_logo.svg",
@@ -224,10 +224,10 @@ for Game in  GameDates:
     Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
     df = get_pbp(LaDate,Team_Vis,Team_Dom)
 
-    
-    Period = []
-    Timer = []
-    ScoreMargin = []
+    # --- Get the Play by play score evolution
+    Period = [1]
+    Timer = [aQT[league]*60]
+    ScoreMargin = [0]
     NbAction = len(df[list(df)[0]])
     for i in range (0,NbAction):
         Period.append(df['QUARTER'][i])
@@ -237,8 +237,26 @@ for Game in  GameDates:
             ScoreMargin.append(df[list(df)[4]][i]-df[list(df)[5]][i])
         else :
             ScoreMargin.append(df[list(df)[5]][i]-df[list(df)[4]][i])
-
+    Period.append(Period[-1])
+    Timer.append(0)
+    ScoreMargin.append(ScoreMargin[-1])
     
+    # --- To add 12:00 and 00:00 in between the QT
+    i = 1
+    while i < len(Period)-1:
+        if Timer[i]>Timer[i-1]:
+            Period.insert(i,Period[i-1])
+            Period.insert(i+1,Period[i-1]+1)
+            Timer.insert(i,0)
+            if Period[i-1]<=4:Timer.insert(i+1,aQT[league]*60)
+            else:Timer.insert(i+1,300)
+            ScoreMargin.insert(i,ScoreMargin[i-1])
+            ScoreMargin.insert(i+1,ScoreMargin[i-1])
+            i+=2
+        i+=1
+            
+            
+            
     # --- Correct the timer to put it in overall seconds
     OverallTimer = []
     for j in range(0,len(Timer)):
@@ -258,7 +276,7 @@ for Game in  GameDates:
 
 #    file.write(Date+' '+Matchup+' '+str(lanote)+'\n')
     file.write('<tr><td style="text-align:center">'+DateEnLettre(LaDate)+'</td><td style="text-align:center">'+GameName(Team_Vis+' @ '+Team_Dom,LOGOS[league])+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
-    
+
     
 if len(lines)>201:
     for l in lines[1:200]:file.write(l[0]+'\n')
