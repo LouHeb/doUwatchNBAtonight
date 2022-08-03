@@ -189,7 +189,7 @@ def Stars(temps,margin,lig):        # lig est nba ou wnba
 
 
 # --- Get yesterday date
-Today = datetime.now() - timedelta(83)
+Today = datetime.now() - timedelta(100)
 
 
 # --- Get the season's last year
