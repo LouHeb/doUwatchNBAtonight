@@ -2,14 +2,12 @@
 #       IMPORT LIBRARIES
 #---
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd 
 import os
 from datetime import datetime, timedelta
 
 os.chdir("github/doUwatchNBAtonight/")
-plt.close('all')
 
 #---
 #       DICTIONNARIES
