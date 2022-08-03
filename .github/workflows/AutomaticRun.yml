@@ -1,7 +1,6 @@
 name: "Run the Workflow"
 on:
-  schedule:
-    - cron: '21 17 * * *' 
+  workflow_dispatch:
     
     
 jobs:
