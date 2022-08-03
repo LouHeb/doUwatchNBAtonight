@@ -1,5 +1,6 @@
 
 
+from basketball_reference_scraper.pbp import get_pbp
 
 
 df = get_pbp('2022-06-16', 'GSW', 'BOS')
