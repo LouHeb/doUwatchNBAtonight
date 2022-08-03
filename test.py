@@ -2,13 +2,8 @@
 
 
 
-import requests
-url ="https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_0022000180.json"
+df = get_pbp('2022-06-16', 'GSW', 'BOS')
 
 
-
-resp = requests.get(url)
-
-print (resp.content)
-
-
+for i in range (0,len(df['BOSTON_SCORE'])):
+    print(df['QUARTER'][i],df['TIME_REMAINING'][i],df['GOLDEN STATE_SCORE'][i],df['BOSTON_SCORE'][i])
