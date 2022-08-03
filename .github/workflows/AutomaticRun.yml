@@ -1,6 +1,7 @@
+name: "Run the Workflow"
 on:
   schedule:
-    - cron: "41 16 * * *"
+    - cron: "47 14 * * *"
 
 jobs:
   build:
