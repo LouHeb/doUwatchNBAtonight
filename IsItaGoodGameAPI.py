@@ -97,8 +97,8 @@ def GameName(g,DicoLogo):  # dicologo est le dictionnaire correspondant aux team
     Tm1 = g[:3]
     Tm2 = g[-3:]
     if Tm1 in DicoLogo and Tm2 in DicoLogo:
-        if matchup=='@':return('<img src="'+DicoLogo[Tm1]+'" width="15 title="'+TeamsAbbr[Tm1]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm2]+'" width="15"> title="'+TeamsAbbr[Tm2]+'"')
-        if matchup=='vs.':return('<img src="'+DicoLogo[Tm2]+'" width="15 title="'+TeamsAbbr[Tm2]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm1]+'" width="15"> title="'+TeamsAbbr[Tm1]+'"')
+        if matchup=='@':return('<img src="'+DicoLogo[Tm1]+'" width="15 title="'+TeamsAbbr[Tm1]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[Tm2]+'">')
+        if matchup=='vs.':return('<img src="'+DicoLogo[Tm2]+'" width="15 title="'+TeamsAbbr[Tm2]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[Tm1]+'">')
     else:
         if matchup=='@':return(g)
         if matchup=='vs.':return(Tm2+' @ '+Tm1)
