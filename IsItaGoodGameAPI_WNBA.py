@@ -6,8 +6,12 @@ import numpy as np
 import pandas as pd 
 import os
 from datetime import datetime, timedelta
+from git import Repo
 
 os.chdir("github/doUwatchNBAtonight/")
+
+g = git.cmd.Git(PATH_OF_GIT_REPO)
+g.pull()
 
 #---
 #       DICTIONNARIES
@@ -315,8 +319,6 @@ if 1==1:#LastDay!=Today:
         #file.close()
 
 
-from git import Repo
-
 PATH_OF_GIT_REPO = r'~/github/doUwatchNBAtonight/'  # make sure .git folder is properly configured
 COMMIT_MESSAGE = Today
 
@@ -327,8 +329,5 @@ def git_push():
     repo.index.commit(COMMIT_MESSAGE)
     origin = repo.remote(name='origin')
     origin.push()
-#    except:
-#        print('Some error occured while pushing the code')    
 
 git_push()
-
