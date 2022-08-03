@@ -47,6 +47,20 @@ LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Cel
 "PHO":"https://upload.wikimedia.org/wikipedia/en/a/a6/Phoenix_Mercury_logo.svg","SEA":"https://upload.wikimedia.org/wikipedia/en/a/a0/Seattle_Storm_%282021%29_logo.svg","WAS":"https://upload.wikimedia.org/wikipedia/en/7/79/Washington_Mystics_logo.svg"}
 }
 
+TeamsAbbr = {'ATL':'Atlanta Dream',
+'CHI':'Chicago Sky',
+'CON':'Connecticut Sun',
+'LAS':'Los Angeles Sparks',
+'NYL':'New York Liberty',
+'WAS':'Washington Mystics',
+'DAL':'Dallas Wings',
+'LVA':'Las Vegas Aces',
+'PHO':'Phoenix Mercury',
+'IND':'Indiana Fever',
+'MIN':'Minnesota Lynx',
+'SEA':'Seattle Storm'
+}
+
 aQT = {'NBA':12,'WNBA':10}
 
 ligId = {'NBA':'00','WNBA':'10'}
@@ -62,8 +76,8 @@ def GameName(g,DicoLogo):  # dicologo est le dictionnaire correspondant aux team
     Tm1 = g[:3]
     Tm2 = g[-3:]
     if Tm1 in DicoLogo and Tm2 in DicoLogo:
-        if matchup=='@':return('<img src="'+DicoLogo[Tm1]+'" width="15">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm2]+'" width="15">')
-        if matchup=='vs.':return('<img src="'+DicoLogo[Tm2]+'" width="15">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm1]+'" width="15">')
+        if matchup=='@':return('<img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[Tm1]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[Tm2]+'">')
+        if matchup=='vs.':return('<img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[Tm2]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[Tm1]+'">')
     else:
         if matchup=='@':return(g)
         if matchup=='vs.':return(Tm2+' @ '+Tm1)
