@@ -10,6 +10,7 @@ import git
 
 os.chdir("github/doUwatchNBAtonight/")
 
+PATH_OF_GIT_REPO = r'~/github/doUwatchNBAtonight/'  # make sure .git folder is properly configured
 g = git.cmd.Git(PATH_OF_GIT_REPO)
 g.pull()
 
@@ -319,7 +320,6 @@ if 1==1:#LastDay!=Today:
         #file.close()
 
 
-PATH_OF_GIT_REPO = r'~/github/doUwatchNBAtonight/'  # make sure .git folder is properly configured
 COMMIT_MESSAGE = Today
 
 def git_push():
