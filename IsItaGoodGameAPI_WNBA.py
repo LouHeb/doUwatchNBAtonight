@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd 
 import os
 from datetime import datetime, timedelta
-from git import Repo
+import git
 
 os.chdir("github/doUwatchNBAtonight/")
 
