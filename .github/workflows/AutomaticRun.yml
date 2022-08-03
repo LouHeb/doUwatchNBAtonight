@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: "36 14 * * *"
+    - cron: "41 16 * * *"
 
 jobs:
   build:
