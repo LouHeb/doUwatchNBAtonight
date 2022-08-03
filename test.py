@@ -3,7 +3,7 @@
 
 
 import requests
-url ="https://www.balldontlie.io/api/v1/games/21020"
+url ="https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_0022000180.json"
 
 
 
