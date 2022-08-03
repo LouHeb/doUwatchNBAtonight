@@ -179,14 +179,14 @@ Y = Line[item:item+4]
 LastDay = M+'/'+D+'/'+Y
 LastDayp1 = datetime.strftime(datetime.strptime(LastDay, "%m/%d/%Y") + timedelta(1),"%m/%d/%Y")
 
-if LastDay!=Today:
+if 1==1:#LastDay!=Today:
     file = open("index.md","w") 
     file.write(lines[0][0]+'\n')
     
     for league in Leagues:    
     
         # --- Extract the games of yesterday
-        StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = LastDayp1,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W")
+        StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = Today,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W")
         #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
         
         df = StudiedGames.get_data_frames()
