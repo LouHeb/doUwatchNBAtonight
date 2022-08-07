@@ -201,6 +201,11 @@ d = get_schedule(Year)
 # --- Put the date correctly formated
 Today = datetime.strftime(Today,"%m/%d/%Y")
 
+# --- Write the date in a file
+FileDate = open("date.txt","w") 
+FileDate.write(Today)
+FileDate.close()
+
 # --- Récuperer les indices des matchs de la nuit derniere
 GameDates = []
 Dates = list(d['DATE'])
