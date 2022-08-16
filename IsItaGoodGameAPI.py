@@ -6,6 +6,9 @@ import numpy as np
 from datetime import datetime, timedelta
 from basketball_reference_scraper.seasons import get_schedule
 from basketball_reference_scraper.pbp import get_pbp
+import pandas as pd
+from requests import get
+from bs4 import BeautifulSoup
 
 
 #---
@@ -41,7 +44,7 @@ LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Cel
 "PHO":"https://upload.wikimedia.org/wikipedia/en/a/a6/Phoenix_Mercury_logo.svg","SEA":"https://upload.wikimedia.org/wikipedia/en/a/a0/Seattle_Storm_%282021%29_logo.svg","WAS":"https://upload.wikimedia.org/wikipedia/en/7/79/Washington_Mystics_logo.svg"}
 }
 
-TeamsAbbr = {'BOS':'Boston Celtics',
+TeamsAbbr = {'NBA':{'BOS':'Boston Celtics',
 'NYK':'New York Knicks',
 'ATL':'Atlanta Hawks',
 'BRK':'Brooklyn Nets',
@@ -70,10 +73,9 @@ TeamsAbbr = {'BOS':'Boston Celtics',
 'SAS':'San Antonio Spurs',
 'TOR':'Toronto Raptors',
 'UTA':'Utah Jazz',
-'WAS':'Washington Wizards'
-}
-
-TeamsAbbr_inv = {TeamsAbbr[x]:x for x in TeamsAbbr}
+'WAS':'Washington Wizards'},
+'WNBA':{'ATL':'Atlanta Dream','CHI':'Chicago Sky','DAL':'Dallas Wings','LVA':'Las Vegas Aces','PHO':'Phoenix Mercury','SEA':'Seattle Storm',
+'MIN':'Minnesota Lynx','WAS':'Washington Mystics','LAS':'Los Angeles Sparks','NYL':'New York Liberty','CON':'Connecticut Sun','IND':'Indiana Fever'}}
 
 
 aQT = {'NBA':12,'WNBA':10}
@@ -92,13 +94,13 @@ def LaSaison(M,Y):
     if M>=9:return(Y+1)
     else:return(Y)
 
-def GameName(g,DicoLogo):  # dicologo est le dictionnaire correspondant aux teams de la ligue
+def GameName(g,DicoLogo,l):  # dicologo est le dictionnaire correspondant aux teams de la ligue
     matchup = g[4:-4]
     Tm1 = g[:3]
     Tm2 = g[-3:]
     if Tm1 in DicoLogo and Tm2 in DicoLogo:
-        if matchup=='@':return('<img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[Tm1]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[Tm2]+'">')
-        if matchup=='vs.':return('<img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[Tm2]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[Tm1]+'">')
+        if matchup=='@':return('<img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[l][Tm1]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[l][Tm2]+'">')
+        if matchup=='vs.':return('<img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[l][Tm2]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[l][Tm1]+'">')
     else:
         if matchup=='@':return(g)
         if matchup=='vs.':return(Tm2+' @ '+Tm1)
@@ -186,34 +188,109 @@ def Stars(temps,margin,lig):        # lig est nba ou wnba
 
     if bigleadSansFin<=10 and note<3:note+=1
     return(note)
+    
+    
+# function to scrap basketball reference for the WNBA
+def get_schedule_WNBA(season, playoffs=False):
+    df = pd.DataFrame()
+    r = get(f'https://www.basketball-reference.com/wnba/years/{season}_games.html')
+    if r.status_code==200:
+        soup = BeautifulSoup(r.content, 'html.parser')
+        table = soup.find('table', attrs={'id': 'schedule'})
+        if table:
+            month_df = pd.read_html(str(table))[0]
+            df = pd.concat([df, month_df])
 
+    df = df.reset_index()
 
-# --- Get yesterday date
-Today = datetime.now() - timedelta(1)
+    cols_to_remove = [i for i in df.columns if 'Unnamed' in i]
+    cols_to_remove += [i for i in df.columns if 'Notes' in i]
+    cols_to_remove += [i for i in df.columns if 'Start' in i]
+    cols_to_remove += [i for i in df.columns if 'Attend' in i]
+    cols_to_remove += [i for i in df.columns if 'Arena' in i]
+    cols_to_remove += ['index']
+    df = df.drop(cols_to_remove, axis=1)
+    df.columns = ['DATE', 'VISITOR', 'VISITOR_PTS', 'HOME', 'HOME_PTS']
 
+    if season==2020:
+        df = df[df['DATE']!='Playoffs']
+        df['DATE'] = df['DATE'].apply(lambda x: pd.to_datetime(x))
+        df = df.sort_values(by='DATE')
+        df = df.reset_index().drop('index', axis=1)
+        playoff_loc = df[df['DATE']==pd.to_datetime('2020-08-17')].head(n=1)
+        if len(playoff_loc.index)>0:
+            playoff_index = playoff_loc.index[0]
+        else:
+            playoff_index = len(df)
+        if playoffs:
+            df = df[playoff_index:]
+        else:
+            df = df[:playoff_index]
+    else:
+        # account for 1953 season where there's more than one "playoffs" header
+        if season == 1953:
+            df.drop_duplicates(subset=['DATE', 'HOME', 'VISITOR'], inplace=True)
+        playoff_loc = df[df['DATE']=='Playoffs']
+        if len(playoff_loc.index)>0:
+            playoff_index = playoff_loc.index[0]
+        else:
+            playoff_index = len(df)
+        if playoffs:
+            df = df[playoff_index+1:]
+        else:
+            df = df[:playoff_index]
+        df['DATE'] = df['DATE'].apply(lambda x: pd.to_datetime(x))
+    return df
 
-# --- Get the season's last year
-Year = LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y")))
+def get_game_suffix_WNBA(date, team1, team2):
+    return('/'+date[0:4]+date[5:7]+date[8:10]+'0'+team2+".html")
 
-# --- Request the games of the current season
-d = get_schedule(Year)
+def get_pbp_WNBA_helper_WNBA(suffix):
+    r = get(f'https://www.basketball-reference.com/wnba/boxscores/pbp{suffix}')
+    if r.status_code==200:
+        soup = BeautifulSoup(r.content, 'html.parser')
+        table = soup.find('table', attrs={'id': 'pbp'})
+        return pd.read_html(str(table))[0]
 
-# --- Put the date correctly formated
-Today = datetime.strftime(Today,"%m/%d/%Y")
+def format_df_WNBA(df1):
+    df1.columns = list(map(lambda x: x[1], list(df1.columns)))
+    t1 = list(df1.columns)[1].upper()
+    t2 = list(df1.columns)[5].upper()
+    q = 1
+    df = None
+    for index, row in df1.iterrows():
+        d = {'QUARTER': float('nan'), 'TIME_REMAINING': float('nan'), f'{t1}_ACTION': float('nan'), f'{t2}_ACTION': float('nan'), f'{t1}_SCORE': float('nan'), f'{t2}_SCORE': float('nan')}
+        if row['Time']=='2nd Q':
+            q = 2
+        elif row['Time']=='3rd Q':
+            q = 3
+        elif row['Time']=='4th Q':
+            q = 4
+        elif 'OT' in row['Time']:
+            q = row['Time'][0]+'OT'
+        try:
+            d['QUARTER'] = q
+            d['TIME_REMAINING'] = row['Time']
+            scores = row['Score'].split('-')
+            d[f'{t1}_SCORE'] = int(scores[0])
+            d[f'{t2}_SCORE'] = int(scores[1])
+            d[f'{t1}_ACTION'] = row[list(df1.columns)[1]]
+            d[f'{t2}_ACTION'] = row[list(df1.columns)[5]]
+            if df is None:
+                df = pd.DataFrame(columns = list(d.keys()))
+            df = df.append(d, ignore_index=True)
+        except:
+            continue
+    return df
 
-# --- Write the date in a file
-FileDate = open("date.txt","w") 
-FileDate.write(Today)
-FileDate.close()
+def get_pbp_WNBA(date, team1, team2):
+    suffix = get_game_suffix_WNBA(date, team1, team2)#.replace('/boxscores', '')
+    date = pd.to_datetime(date)
+    df = get_pbp_WNBA_helper_WNBA(suffix)
+    df = format_df_WNBA(df)
+    return df
 
-# --- Récuperer les indices des matchs de la nuit derniere
-GameDates = []
-Dates = list(d['DATE'])
-for i in range(0,len(Dates)):
-    LaDate = datetime.strftime(Dates[i].to_pydatetime(),"%m/%d/%Y")
-    if LaDate==Today:GameDates.append(i)
-
-league = 'NBA'
+Functions = {'NBA':[get_schedule,get_pbp],'WNBA':[get_schedule_WNBA,get_pbp_WNBA]}
 
 # --- Get what's already in the Notes file
 with open("index.md","r", encoding="utf-8") as f:
@@ -221,66 +298,96 @@ with open("index.md","r", encoding="utf-8") as f:
 
 file = open("index.md","w") 
 file.write(lines[0][0]+'\n')
-
-
-for Game in  GameDates:
-    LaDate = datetime.strftime(d['DATE'][Game],"%Y-%m-%d")
-    Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
-    Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
-    df = get_pbp(LaDate,Team_Vis,Team_Dom)
-
-    # --- Get the Play by play score evolution
-    Period = [1]
-    Timer = [aQT[league]*60]
-    ScoreMargin = [0]
-    NbAction = len(df[list(df)[0]])
-    for i in range (0,NbAction):
-        Period.append(df['QUARTER'][i])
-        Timer.append(EnSecondes(df['TIME_REMAINING'][i][:-2]))
-        # --- boucle pour toujours faire score vainqueur - score loser
-        if df[list(df)[4]][NbAction-1]>df[list(df)[5]][NbAction-1]:       
-            ScoreMargin.append(df[list(df)[4]][i]-df[list(df)[5]][i])
-        else :
-            ScoreMargin.append(df[list(df)[5]][i]-df[list(df)[4]][i])
-    Period.append(Period[-1])
-    Timer.append(0)
-    ScoreMargin.append(ScoreMargin[-1])
     
-    # --- To add 12:00 and 00:00 in between the QT
-    i = 1
-    while i < len(Period)-1:
-        if Timer[i]>Timer[i-1]:
-            Period.insert(i,Period[i-1])
-            Period.insert(i+1,Period[i-1]+1)
-            Timer.insert(i,0)
-            if Period[i-1]<=4:Timer.insert(i+1,aQT[league]*60)
-            else:Timer.insert(i+1,300)
-            ScoreMargin.insert(i,ScoreMargin[i-1])
-            ScoreMargin.insert(i+1,ScoreMargin[i-1])
-            i+=2
-        i+=1
-            
-            
-            
-    # --- Correct the timer to put it in overall seconds
-    OverallTimer = []
-    for j in range(0,len(Timer)):
-        Decal = sum([Timer[Period.index(x)] for x in range(1,Period[j])])
-        OverallTimer.append(Decal+Timer[Period.index(Period[j])]-Timer[j])
+for iii in [7,6,5,4,3,2,1]:
+    for league in Leagues:
     
-    # --- Calculate the useful values         
-    last_tie = LastTie(OverallTimer,ScoreMargin)
-    last_2_pos = Last2Pos(OverallTimer,ScoreMargin)
-    biggest_lead_loser = BigestLeadLoser(OverallTimer,ScoreMargin)
-    biggest_lead = BigestLead(OverallTimer,ScoreMargin)    
-    victory_margin = VictoryMargin(OverallTimer,ScoreMargin)   
-    overtime = OverTime(OverallTimer,ScoreMargin,aQT[league])
-    lanote = Stars(OverallTimer,ScoreMargin,league)
-
-
-
-#    file.write(Date+' '+Matchup+' '+str(lanote)+'\n')
-    file.write('<tr><td style="text-align:center">'+DateEnLettre(LaDate)+'</td><td style="text-align:center">'+GameName(Team_Vis+' @ '+Team_Dom,LOGOS[league])+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
+        TeamsAbbr_inv = {TeamsAbbr[league][x]:x for x in TeamsAbbr[league]}
+        
+        # --- Get yesterday date
+        Today = datetime.now() - timedelta(iii)
+        
+        
+        # --- Get the season's last year
+        Year = LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y")))
+        
+        # --- Request the games of the current season
+        d = Functions[league][0](Year)
+        
+        # --- Put the date correctly formated
+        Today = datetime.strftime(Today,"%m/%d/%Y")
+        
+        # --- Write the date in a file
+        FileDate = open("date.txt","w") 
+        FileDate.write(Today)
+        FileDate.close()
+        
+        # --- Récuperer les indices des matchs de la nuit derniere
+        GameDates = []
+        Dates = list(d['DATE'])
+        for i in range(0,len(Dates)):
+            LaDate = datetime.strftime(Dates[i].to_pydatetime(),"%m/%d/%Y")
+            if LaDate==Today:GameDates.append(i)
+        
+        
+        for Game in  GameDates:
+            LaDate = datetime.strftime(d['DATE'][Game],"%Y-%m-%d")
+            Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
+            Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
+            df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
+        
+            # --- Get the Play by play score evolution
+            Period = [1]
+            Timer = [aQT[league]*60]
+            ScoreMargin = [0]
+            NbAction = len(df[list(df)[0]])
+            for i in range (0,NbAction):
+                Period.append(df['QUARTER'][i])
+                Timer.append(EnSecondes(df['TIME_REMAINING'][i][:-2]))
+                # --- boucle pour toujours faire score vainqueur - score loser
+                if df[list(df)[4]][NbAction-1]>df[list(df)[5]][NbAction-1]:       
+                    ScoreMargin.append(df[list(df)[4]][i]-df[list(df)[5]][i])
+                else :
+                    ScoreMargin.append(df[list(df)[5]][i]-df[list(df)[4]][i])
+            Period.append(Period[-1])
+            Timer.append(0)
+            ScoreMargin.append(ScoreMargin[-1])
+            
+            # --- To add 12:00 and 00:00 in between the QT
+            i = 1
+            while i < len(Period)-1:
+                if Timer[i]>Timer[i-1]:
+                    Period.insert(i,Period[i-1])
+                    Period.insert(i+1,Period[i-1]+1)
+                    Timer.insert(i,0)
+                    if Period[i-1]<=4:Timer.insert(i+1,aQT[league]*60)
+                    else:Timer.insert(i+1,300)
+                    ScoreMargin.insert(i,ScoreMargin[i-1])
+                    ScoreMargin.insert(i+1,ScoreMargin[i-1])
+                    i+=2
+                i+=1
+                    
+                    
+                    
+            # --- Correct the timer to put it in overall seconds
+            OverallTimer = []
+            for j in range(0,len(Timer)):
+                Decal = sum([Timer[Period.index(x)] for x in range(1,Period[j])])
+                OverallTimer.append(Decal+Timer[Period.index(Period[j])]-Timer[j])
+            
+            # --- Calculate the useful values         
+            last_tie = LastTie(OverallTimer,ScoreMargin)
+            last_2_pos = Last2Pos(OverallTimer,ScoreMargin)
+            biggest_lead_loser = BigestLeadLoser(OverallTimer,ScoreMargin)
+            biggest_lead = BigestLead(OverallTimer,ScoreMargin)    
+            victory_margin = VictoryMargin(OverallTimer,ScoreMargin)   
+            overtime = OverTime(OverallTimer,ScoreMargin,aQT[league])
+            lanote = Stars(OverallTimer,ScoreMargin,league)
+        
+        
+        
+        #    file.write(Date+' '+Matchup+' '+str(lanote)+'\n')
+            file.write('<tr><td style="text-align:center">'+DateEnLettre(LaDate)+'</td><td style="text-align:center">'+GameName(Team_Vis+' @ '+Team_Dom,LOGOS[league],league)+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
 
     
 if len(lines)>201:
