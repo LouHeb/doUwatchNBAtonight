@@ -299,95 +299,94 @@ with open("index.md","r", encoding="utf-8") as f:
 file = open("index.md","w") 
 file.write(lines[0][0]+'\n')
     
-for iii in [7,6,5,4,3,2,1]:
-    for league in Leagues:
+for league in Leagues:
+
+    TeamsAbbr_inv = {TeamsAbbr[league][x]:x for x in TeamsAbbr[league]}
     
-        TeamsAbbr_inv = {TeamsAbbr[league][x]:x for x in TeamsAbbr[league]}
+    # --- Get yesterday date
+    Today = datetime.now() - timedelta(98)
+    
+    
+    # --- Get the season's last year
+    Year = LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y")))
+    
+    # --- Request the games of the current season
+    d = Functions[league][0](Year)
+    
+    # --- Put the date correctly formated
+    Today = datetime.strftime(Today,"%m/%d/%Y")
+    
+    # --- Write the date in a file
+    FileDate = open("date.txt","w") 
+    FileDate.write(Today)
+    FileDate.close()
+    
+    # --- Récuperer les indices des matchs de la nuit derniere
+    GameDates = []
+    Dates = list(d['DATE'])
+    for i in range(0,len(Dates)):
+        LaDate = datetime.strftime(Dates[i].to_pydatetime(),"%m/%d/%Y")
+        if LaDate==Today:GameDates.append(i)
+    
+    
+    for Game in  GameDates:
+        LaDate = datetime.strftime(d['DATE'][Game],"%Y-%m-%d")
+        Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
+        Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
+        df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
+    
+        # --- Get the Play by play score evolution
+        Period = [1]
+        Timer = [aQT[league]*60]
+        ScoreMargin = [0]
+        NbAction = len(df[list(df)[0]])
+        for i in range (0,NbAction):
+            Period.append(df['QUARTER'][i])
+            Timer.append(EnSecondes(df['TIME_REMAINING'][i][:-2]))
+            # --- boucle pour toujours faire score vainqueur - score loser
+            if df[list(df)[4]][NbAction-1]>df[list(df)[5]][NbAction-1]:       
+                ScoreMargin.append(df[list(df)[4]][i]-df[list(df)[5]][i])
+            else :
+                ScoreMargin.append(df[list(df)[5]][i]-df[list(df)[4]][i])
+        Period.append(Period[-1])
+        Timer.append(0)
+        ScoreMargin.append(ScoreMargin[-1])
         
-        # --- Get yesterday date
-        Today = datetime.now() - timedelta(iii)
+        # --- To add 12:00 and 00:00 in between the QT
+        i = 1
+        while i < len(Period)-1:
+            if Timer[i]>Timer[i-1]:
+                Period.insert(i,Period[i-1])
+                Period.insert(i+1,Period[i-1]+1)
+                Timer.insert(i,0)
+                if Period[i-1]<=4:Timer.insert(i+1,aQT[league]*60)
+                else:Timer.insert(i+1,300)
+                ScoreMargin.insert(i,ScoreMargin[i-1])
+                ScoreMargin.insert(i+1,ScoreMargin[i-1])
+                i+=2
+            i+=1
+                
+                
+                
+        # --- Correct the timer to put it in overall seconds
+        OverallTimer = []
+        for j in range(0,len(Timer)):
+            Decal = sum([Timer[Period.index(x)] for x in range(1,Period[j])])
+            OverallTimer.append(Decal+Timer[Period.index(Period[j])]-Timer[j])
         
-        
-        # --- Get the season's last year
-        Year = LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y")))
-        
-        # --- Request the games of the current season
-        d = Functions[league][0](Year)
-        
-        # --- Put the date correctly formated
-        Today = datetime.strftime(Today,"%m/%d/%Y")
-        
-        # --- Write the date in a file
-        FileDate = open("date.txt","w") 
-        FileDate.write(Today)
-        FileDate.close()
-        
-        # --- Récuperer les indices des matchs de la nuit derniere
-        GameDates = []
-        Dates = list(d['DATE'])
-        for i in range(0,len(Dates)):
-            LaDate = datetime.strftime(Dates[i].to_pydatetime(),"%m/%d/%Y")
-            if LaDate==Today:GameDates.append(i)
-        
-        
-        for Game in  GameDates:
-            LaDate = datetime.strftime(d['DATE'][Game],"%Y-%m-%d")
-            Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
-            Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
-            df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
-        
-            # --- Get the Play by play score evolution
-            Period = [1]
-            Timer = [aQT[league]*60]
-            ScoreMargin = [0]
-            NbAction = len(df[list(df)[0]])
-            for i in range (0,NbAction):
-                Period.append(df['QUARTER'][i])
-                Timer.append(EnSecondes(df['TIME_REMAINING'][i][:-2]))
-                # --- boucle pour toujours faire score vainqueur - score loser
-                if df[list(df)[4]][NbAction-1]>df[list(df)[5]][NbAction-1]:       
-                    ScoreMargin.append(df[list(df)[4]][i]-df[list(df)[5]][i])
-                else :
-                    ScoreMargin.append(df[list(df)[5]][i]-df[list(df)[4]][i])
-            Period.append(Period[-1])
-            Timer.append(0)
-            ScoreMargin.append(ScoreMargin[-1])
-            
-            # --- To add 12:00 and 00:00 in between the QT
-            i = 1
-            while i < len(Period)-1:
-                if Timer[i]>Timer[i-1]:
-                    Period.insert(i,Period[i-1])
-                    Period.insert(i+1,Period[i-1]+1)
-                    Timer.insert(i,0)
-                    if Period[i-1]<=4:Timer.insert(i+1,aQT[league]*60)
-                    else:Timer.insert(i+1,300)
-                    ScoreMargin.insert(i,ScoreMargin[i-1])
-                    ScoreMargin.insert(i+1,ScoreMargin[i-1])
-                    i+=2
-                i+=1
-                    
-                    
-                    
-            # --- Correct the timer to put it in overall seconds
-            OverallTimer = []
-            for j in range(0,len(Timer)):
-                Decal = sum([Timer[Period.index(x)] for x in range(1,Period[j])])
-                OverallTimer.append(Decal+Timer[Period.index(Period[j])]-Timer[j])
-            
-            # --- Calculate the useful values         
-            last_tie = LastTie(OverallTimer,ScoreMargin)
-            last_2_pos = Last2Pos(OverallTimer,ScoreMargin)
-            biggest_lead_loser = BigestLeadLoser(OverallTimer,ScoreMargin)
-            biggest_lead = BigestLead(OverallTimer,ScoreMargin)    
-            victory_margin = VictoryMargin(OverallTimer,ScoreMargin)   
-            overtime = OverTime(OverallTimer,ScoreMargin,aQT[league])
-            lanote = Stars(OverallTimer,ScoreMargin,league)
-        
-        
-        
-        #    file.write(Date+' '+Matchup+' '+str(lanote)+'\n')
-            file.write('<tr><td style="text-align:center">'+DateEnLettre(LaDate)+'</td><td style="text-align:center">'+GameName(Team_Vis+' @ '+Team_Dom,LOGOS[league],league)+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
+        # --- Calculate the useful values         
+        last_tie = LastTie(OverallTimer,ScoreMargin)
+        last_2_pos = Last2Pos(OverallTimer,ScoreMargin)
+        biggest_lead_loser = BigestLeadLoser(OverallTimer,ScoreMargin)
+        biggest_lead = BigestLead(OverallTimer,ScoreMargin)    
+        victory_margin = VictoryMargin(OverallTimer,ScoreMargin)   
+        overtime = OverTime(OverallTimer,ScoreMargin,aQT[league])
+        lanote = Stars(OverallTimer,ScoreMargin,league)
+    
+    
+    
+    #    file.write(Date+' '+Matchup+' '+str(lanote)+'\n')
+        file.write('<tr><td style="text-align:center">'+DateEnLettre(LaDate)+'</td><td style="text-align:center">'+GameName(Team_Vis+' @ '+Team_Dom,LOGOS[league],league)+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
 
     
 if len(lines)>201:
