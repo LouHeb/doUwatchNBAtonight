@@ -1,7 +1,6 @@
 name: "Run the Workflow"
 on:
-  schedule:
-    - cron: "01 05 * * *"
+  workflow_dispatch:
     
     
 jobs:
@@ -18,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install numpy datetime basketball_reference_scraper
+          pip install numpy datetime basketball_reference_scraper pandas requests bs4
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: execute py script
         run: |
