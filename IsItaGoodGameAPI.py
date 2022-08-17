@@ -190,7 +190,7 @@ def Stars(temps,margin,lig):        # lig est nba ou wnba
     return(note)
     
     
-# function to scrap basketball reference for the WNBA
+# Functions to scrap basketball reference for the WNBA
 def get_schedule_WNBA(season, playoffs=False):
     df = pd.DataFrame()
     r = get(f'https://www.basketball-reference.com/wnba/years/{season}_games.html')
@@ -304,7 +304,7 @@ for league in Leagues:
     TeamsAbbr_inv = {TeamsAbbr[league][x]:x for x in TeamsAbbr[league]}
     
     # --- Get yesterday date
-    Today = datetime.now() - timedelta(98)
+    Today = datetime.now() - timedelta(1)
     
     
     # --- Get the season's last year
