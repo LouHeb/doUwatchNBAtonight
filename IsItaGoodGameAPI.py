@@ -313,6 +313,12 @@ for league in Leagues:
     # --- Request the games of the current season
     d = Functions[league][0](Year)
     
+    # --- Get the playoffs games for the WNBA
+    if league=='WNBA':
+        d_PO = Functions[league][0](Year,True)
+        frames = [d, d_PO]
+        d = pd.concat(frames,ignore_index=True)
+    
     # --- Put the date correctly formated
     Today = datetime.strftime(Today,"%m/%d/%Y")
     
