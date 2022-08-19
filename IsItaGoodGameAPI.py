@@ -308,14 +308,14 @@ for league in Leagues:
     
     
     # --- Get the season's last year
-    Year = LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y")))
+    Year = {'NBA':LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y"))),'WNBA':int(datetime.strftime(Today,"%Y"))}
     
     # --- Request the games of the current season
-    d = Functions[league][0](Year)
+    d = Functions[league][0](Year[league])
     
     # --- Get the playoffs games for the WNBA
     if league=='WNBA':
-        d_PO = Functions[league][0](Year,True)
+        d_PO = Functions[league][0](Year[league],True)
         frames = [d, d_PO]
         d = pd.concat(frames,ignore_index=True)
     
