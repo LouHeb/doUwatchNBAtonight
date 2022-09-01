@@ -8,7 +8,7 @@ import os
 from datetime import datetime, timedelta
 import git
 
-os.chdir("github/doUwatchNBAtonight/")
+#os.chdir("github/doUwatchNBAtonight/")
 
 PATH_OF_GIT_REPO = r'~/github/doUwatchNBAtonight/'  # make sure .git folder is properly configured
 g = git.cmd.Git(PATH_OF_GIT_REPO)
