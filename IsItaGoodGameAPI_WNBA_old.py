@@ -171,6 +171,11 @@ def Stars(temps,margin,lig):        # lig est nba ou wnba
 Today = datetime.strftime(datetime.now() - timedelta(1),"%m/%d/%Y")
 #Today = "06/16/2022"
 
+# --- Write the date in a file
+FileDate = open("date.txt","w") 
+FileDate.write(Today)
+FileDate.close()
+
 from nba_api.stats.endpoints import leaguegamefinder
 from nba_api.stats.endpoints import playbyplay
 
