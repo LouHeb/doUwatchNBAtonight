@@ -3,16 +3,13 @@
 #---
 
 import numpy as np
-import pandas as pd 
-import os
 from datetime import datetime, timedelta
-import git
+from basketball_reference_scraper.seasons import get_schedule
+from basketball_reference_scraper.pbp import get_pbp
+import pandas as pd
+from requests import get
+from bs4 import BeautifulSoup
 
-#os.chdir("github/doUwatchNBAtonight/")
-
-PATH_OF_GIT_REPO = r'~/github/doUwatchNBAtonight/'  # make sure .git folder is properly configured
-g = git.cmd.Git(PATH_OF_GIT_REPO)
-g.pull()
 
 #---
 #       DICTIONNARIES
@@ -30,15 +27,15 @@ NoteHtml = {0:EMPTY,
             2:FULL+FULL,
             3:FULL+FULL+FULL}
 
-LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg','BKN':'https://upload.wikimedia.org/wikipedia/commons/4/44/Brooklyn_Nets_newlogo.svg','NYK':'https://upload.wikimedia.org/wikipedia/en/2/25/New_York_Knicks_logo.svg',
+LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg','BRK':'https://upload.wikimedia.org/wikipedia/commons/4/44/Brooklyn_Nets_newlogo.svg','NYK':'https://upload.wikimedia.org/wikipedia/en/2/25/New_York_Knicks_logo.svg',
 'PHI':'https://upload.wikimedia.org/wikipedia/en/0/0e/Philadelphia_76ers_logo.svg','TOR':'https://upload.wikimedia.org/wikipedia/en/3/36/Toronto_Raptors_logo.svg','CHI':'https://upload.wikimedia.org/wikipedia/en/6/67/Chicago_Bulls_logo.svg',
 'CLE':'https://upload.wikimedia.org/wikipedia/en/4/4b/Cleveland_Cavaliers_logo.svg','DET':'https://upload.wikimedia.org/wikipedia/commons/7/7c/Pistons_logo17.svg','IND':'https://upload.wikimedia.org/wikipedia/en/1/1b/Indiana_Pacers.svg',
-'MIL':'https://upload.wikimedia.org/wikipedia/en/4/4a/Milwaukee_Bucks_logo.svg','ATL':'https://upload.wikimedia.org/wikipedia/en/2/24/Atlanta_Hawks_logo.svg','CHA':'https://upload.wikimedia.org/wikipedia/en/c/c4/Charlotte_Hornets_%282014%29.svg',
+'MIL':'https://upload.wikimedia.org/wikipedia/en/4/4a/Milwaukee_Bucks_logo.svg','ATL':'https://upload.wikimedia.org/wikipedia/en/2/24/Atlanta_Hawks_logo.svg','CHO':'https://upload.wikimedia.org/wikipedia/en/c/c4/Charlotte_Hornets_%282014%29.svg',
 'MIA':'https://upload.wikimedia.org/wikipedia/en/f/fb/Miami_Heat_logo.svg','ORL':'https://upload.wikimedia.org/wikipedia/en/1/10/Orlando_Magic_logo.svg','WAS':'https://upload.wikimedia.org/wikipedia/en/0/02/Washington_Wizards_logo.svg',
 'DEN':'https://upload.wikimedia.org/wikipedia/en/7/76/Denver_Nuggets.svg','MIN':'https://upload.wikimedia.org/wikipedia/en/c/c2/Minnesota_Timberwolves_logo.svg','OKC':'https://upload.wikimedia.org/wikipedia/en/5/5d/Oklahoma_City_Thunder.svg',
 'POR':'https://upload.wikimedia.org/wikipedia/en/2/21/Portland_Trail_Blazers_logo.svg','UTA':'https://upload.wikimedia.org/wikipedia/en/5/52/Utah_Jazz_logo_2022.svg',
 'GSW':'https://upload.wikimedia.org/wikipedia/en/0/01/Golden_State_Warriors_logo.svg','LAC':'https://upload.wikimedia.org/wikipedia/en/b/bb/Los_Angeles_Clippers_%282015%29.svg',
-'LAL':'https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg','PHX':'https://upload.wikimedia.org/wikipedia/en/d/dc/Phoenix_Suns_logo.svg','SAC':'https://upload.wikimedia.org/wikipedia/en/c/c7/SacramentoKings.svg',
+'LAL':'https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg','PHO':'https://upload.wikimedia.org/wikipedia/en/d/dc/Phoenix_Suns_logo.svg','SAC':'https://upload.wikimedia.org/wikipedia/en/c/c7/SacramentoKings.svg',
 'DAL':'https://upload.wikimedia.org/wikipedia/en/9/97/Dallas_Mavericks_logo.svg','HOU':'https://upload.wikimedia.org/wikipedia/en/2/28/Houston_Rockets.svg','MEM':'https://upload.wikimedia.org/wikipedia/en/f/f1/Memphis_Grizzlies.svg',
 'NOP':'https://upload.wikimedia.org/wikipedia/en/0/0d/New_Orleans_Pelicans_logo.svg','SAS':'https://upload.wikimedia.org/wikipedia/en/a/a2/San_Antonio_Spurs.svg'},
 'WNBA':{"ATL":"https://upload.wikimedia.org/wikipedia/en/5/54/Atlanta_Dream_logo.svg","CHI":"https://upload.wikimedia.org/wikipedia/en/f/fc/Chicago_Sky_logo.svg","CON":"https://upload.wikimedia.org/wikipedia/en/0/09/Connecticut_Sun_logo.svg",
@@ -47,37 +44,63 @@ LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Cel
 "PHO":"https://upload.wikimedia.org/wikipedia/en/a/a6/Phoenix_Mercury_logo.svg","SEA":"https://upload.wikimedia.org/wikipedia/en/a/a0/Seattle_Storm_%282021%29_logo.svg","WAS":"https://upload.wikimedia.org/wikipedia/en/7/79/Washington_Mystics_logo.svg"}
 }
 
-TeamsAbbr = {'ATL':'Atlanta Dream',
-'CHI':'Chicago Sky',
-'CON':'Connecticut Sun',
-'LAS':'Los Angeles Sparks',
-'NYL':'New York Liberty',
-'WAS':'Washington Mystics',
-'DAL':'Dallas Wings',
-'LVA':'Las Vegas Aces',
-'PHO':'Phoenix Mercury',
-'IND':'Indiana Fever',
-'MIN':'Minnesota Lynx',
-'SEA':'Seattle Storm'
-}
+TeamsAbbr = {'NBA':{'BOS':'Boston Celtics',
+'NYK':'New York Knicks',
+'ATL':'Atlanta Hawks',
+'BRK':'Brooklyn Nets',
+'CHO':'Charlotte Hornets',
+'CHI':'Chicago Bulls',
+'CLE':'Cleveland Cavaliers',
+'DAL':'Dallas Mavericks',
+'DEN':'Denver Nuggets',
+'DET':'Detroit Pistons',
+'GSW':'Golden State Warriors',
+'HOU':'Houston Rockets',
+'IND':'Indiana Pacers',
+'LAC':'Los Angeles Clippers',
+'LAL':'Los Angeles Lakers',
+'MEM':'Memphis Grizzlies',
+'MIA':'Miami Heat',
+'MIL':'Milwaukee Bucks',
+'MIN':'Minnesota Timberwolves',
+'NOP':'New Orleans Pelicans',
+'OKC':'Oklahoma City Thunder',
+'ORL':'Orlando Magic',
+'PHI':'Philadelphia 76ers',
+'PHO':'Phoenix Suns',
+'POR':'Portland Trail Blazers',
+'SAC':'Sacramento Kings',
+'SAS':'San Antonio Spurs',
+'TOR':'Toronto Raptors',
+'UTA':'Utah Jazz',
+'WAS':'Washington Wizards'},
+'WNBA':{'ATL':'Atlanta Dream','CHI':'Chicago Sky','DAL':'Dallas Wings','LVA':'Las Vegas Aces','PHO':'Phoenix Mercury','SEA':'Seattle Storm',
+'MIN':'Minnesota Lynx','WAS':'Washington Mystics','LAS':'Los Angeles Sparks','NYL':'New York Liberty','CON':'Connecticut Sun','IND':'Indiana Fever'}}
+
 
 aQT = {'NBA':12,'WNBA':10}
 
 ligId = {'NBA':'00','WNBA':'10'}
 
 
-Leagues = ['WNBA']
+Leagues = ['NBA','WNBA']
+
 #---
 #       FUNCTIONS
 #---
 
-def GameName(g,DicoLogo):  # dicologo est le dictionnaire correspondant aux teams de la ligue
+
+def LaSaison(M,Y):
+    if M>=9:return(Y+1)
+    else:return(Y)
+
+def GameName(g,DicoLogo,l):  # dicologo est le dictionnaire correspondant aux teams de la ligue
     matchup = g[4:-4]
     Tm1 = g[:3]
     Tm2 = g[-3:]
     if Tm1 in DicoLogo and Tm2 in DicoLogo:
-        if matchup=='@':return('<img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[Tm1]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[Tm2]+'">')
-        if matchup=='vs.':return('<img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[Tm2]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[Tm1]+'">')
+        if matchup=='@':return('<img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[l][Tm1]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[l][Tm2]+'">')
+        if matchup=='vs.':return('<img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[l][Tm2]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[l][Tm1]+'">')
     else:
         if matchup=='@':return(g)
         if matchup=='vs.':return(Tm2+' @ '+Tm1)
@@ -165,82 +188,210 @@ def Stars(temps,margin,lig):        # lig est nba ou wnba
 
     if bigleadSansFin<=10 and note<3:note+=1
     return(note)
+    
+    
+# Functions to scrap basketball reference for the WNBA
+def get_schedule_WNBA(season, playoffs=False):
+    df = pd.DataFrame()
+    r = get(f'https://www.basketball-reference.com/wnba/years/{season}_games.html')
+    if r.status_code==200:
+        soup = BeautifulSoup(r.content, 'html.parser')
+        table = soup.find('table', attrs={'id': 'schedule'})
+        if table:
+            month_df = pd.read_html(str(table))[0]
+            df = pd.concat([df, month_df])
 
+    df = df.reset_index()
 
-# --- Get yesterday's date
-Today = datetime.strftime(datetime.now() - timedelta(1),"%m/%d/%Y")
-#Today = "06/16/2022"
+    cols_to_remove = [i for i in df.columns if 'Unnamed' in i]
+    cols_to_remove += [i for i in df.columns if 'Notes' in i]
+    cols_to_remove += [i for i in df.columns if 'Start' in i]
+    cols_to_remove += [i for i in df.columns if 'Attend' in i]
+    cols_to_remove += [i for i in df.columns if 'Arena' in i]
+    cols_to_remove += ['index']
+    df = df.drop(cols_to_remove, axis=1)
+    df.columns = ['DATE', 'VISITOR', 'VISITOR_PTS', 'HOME', 'HOME_PTS']
 
-# --- Write the date in a file
-FileDate = open("date.txt","w") 
-FileDate.write(Today)
-FileDate.close()
+    if season==2020:
+        df = df[df['DATE']!='Playoffs']
+        df['DATE'] = df['DATE'].apply(lambda x: pd.to_datetime(x))
+        df = df.sort_values(by='DATE')
+        df = df.reset_index().drop('index', axis=1)
+        playoff_loc = df[df['DATE']==pd.to_datetime('2020-08-17')].head(n=1)
+        if len(playoff_loc.index)>0:
+            playoff_index = playoff_loc.index[0]
+        else:
+            playoff_index = len(df)
+        if playoffs:
+            df = df[playoff_index:]
+        else:
+            df = df[:playoff_index]
+    else:
+        # account for 1953 season where there's more than one "playoffs" header
+        if season == 1953:
+            df.drop_duplicates(subset=['DATE', 'HOME', 'VISITOR'], inplace=True)
+        playoff_loc = df[df['DATE']=='Playoffs']
+        if len(playoff_loc.index)>0:
+            playoff_index = playoff_loc.index[0]
+        else:
+            playoff_index = len(df)
+        if playoffs:
+            df = df[playoff_index+1:]
+        else:
+            df = df[:playoff_index]
+        df['DATE'] = df['DATE'].apply(lambda x: pd.to_datetime(x))
+    return df
 
-from nba_api.stats.endpoints import leaguegamefinder
-from nba_api.stats.endpoints import playbyplay
+def get_game_suffix_WNBA(date, team1, team2):
+    return('/'+date[0:4]+date[5:7]+date[8:10]+'0'+team2+".html")
 
-# --- Get what's already in the Notes file
-with open("index.md","r", encoding="utf-8") as f:
-    lines = [line.strip().split("XXX") for line in f]    
+def get_pbp_WNBA_helper_WNBA(suffix):
+    r = get(f'https://www.basketball-reference.com/wnba/boxscores/pbp{suffix}')
+    if r.status_code==200:
+        soup = BeautifulSoup(r.content, 'html.parser')
+        table = soup.find('table', attrs={'id': 'pbp'})
+        return pd.read_html(str(table))[0]
 
-# --- Get the last run date
-M = ''
-item = 0
-Line = lines[1][0][34:]
-while Line[item]!=' ':
-    M+=Line[item]
-    item+=1
-M = {v: k for k, v in Lit_Month.items()}[M]
-item+=1
-D = ''
-while Line[item]!=',':
-    D+=Line[item]
-    item+=1
-D = D[:-2]
-item+=2
-Y = Line[item:item+4]
+def format_df_WNBA(df1):
+    df1.columns = list(map(lambda x: x[1], list(df1.columns)))
+    t1 = list(df1.columns)[1].upper()
+    t2 = list(df1.columns)[5].upper()
+    q = 1
+    df = None
+    for index, row in df1.iterrows():
+        d = {'QUARTER': float('nan'), 'TIME_REMAINING': float('nan'), f'{t1}_ACTION': float('nan'), f'{t2}_ACTION': float('nan'), f'{t1}_SCORE': float('nan'), f'{t2}_SCORE': float('nan')}
+        if row['Time']=='2nd Q':
+            q = 2
+        elif row['Time']=='3rd Q':
+            q = 3
+        elif row['Time']=='4th Q':
+            q = 4
+        elif 'OT' in row['Time']:
+            q = row['Time'][0]+'OT'
+        try:
+            d['QUARTER'] = q
+            d['TIME_REMAINING'] = row['Time']
+            scores = row['Score'].split('-')
+            d[f'{t1}_SCORE'] = int(scores[0])
+            d[f'{t2}_SCORE'] = int(scores[1])
+            d[f'{t1}_ACTION'] = row[list(df1.columns)[1]]
+            d[f'{t2}_ACTION'] = row[list(df1.columns)[5]]
+            if df is None:
+                df = pd.DataFrame(columns = list(d.keys()))
+            df = df.append(d, ignore_index=True)
+        except:
+            continue
+    return df
 
-LastDay = M+'/'+D+'/'+Y
-LastDayp1 = datetime.strftime(datetime.strptime(LastDay, "%m/%d/%Y") + timedelta(1),"%m/%d/%Y")
+def get_pbp_WNBA(date, team1, team2):
+    suffix = get_game_suffix_WNBA(date, team1, team2)#.replace('/boxscores', '')
+    date = pd.to_datetime(date)
+    df = get_pbp_WNBA_helper_WNBA(suffix)
+    df = format_df_WNBA(df)
+    return df
 
-if 1==1:#LastDay!=Today:
+def date_range(start, end):
+    delta = end - start  # as timedelta
+    days = [start + timedelta(days=i) for i in range(delta.days + 1)]
+    return days[1:]
+
+Functions = {'NBA':[get_schedule,get_pbp],'WNBA':[get_schedule_WNBA,get_pbp_WNBA]}
+
+# --- Get Last time run
+with open("date.txt","r", encoding="utf-8") as f:
+    lines = [line.strip().split("XXX") for line in f]
+Last = datetime.strptime(lines[0][0], '%m/%d/%Y')
+    
+# --- Get yesterday date
+Yesterday = datetime.now() - timedelta(1)
+
+# --- Evaluate the days between last run    
+LesDates = date_range(Last, Yesterday)
+
+for ld in LesDates:
+    
+    # --- Get what's already in the Notes file
+    with open("index.md","r", encoding="utf-8") as f:
+        lines = [line.strip().split("XXX") for line in f]    
+    
     file = open("index.md","w") 
     file.write(lines[0][0]+'\n')
-    
-    for league in Leagues:    
-    
-        # --- Extract the games of yesterday
-        StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',date_from_nullable = LastDayp1,date_to_nullable = Today, league_id_nullable = ligId[league], outcome_nullable = "W")
-        #StudiedGames = leaguegamefinder.LeagueGameFinder(player_or_team_abbreviation='T',season_nullable = '2021-22', league_id_nullable = ligId[league], outcome_nullable = "W")
         
-        df = StudiedGames.get_data_frames()
-    
-            
-        # --- Calculate the Note for each game of today
-        for Index in range(0,len(df[0]['GAME_ID'])):
-            LeGame = df[0]['GAME_ID'][Index]
-            Matchup = df[0]['MATCHUP'][Index]
-            Date = df[0]['GAME_DATE'][Index]
-            
-            # --- Extract the play-by-play of this game
-            pbp = playbyplay.PlayByPlay(game_id=LeGame)
-            dfPBP = pbp.get_data_frames()
-                    
-            # --- Extract the Timer, QT and score margin
-            Period = [int(dfPBP[0]["PERIOD"][0])]
-            Timer = [EnSecondes(dfPBP[0]["PCTIMESTRING"][0])]
+    for league in Leagues:
+        Today = ld
+        
+        TeamsAbbr_inv = {TeamsAbbr[league][x]:x for x in TeamsAbbr[league]}
+        
+        # --- Get the season's last year
+        Year = {'NBA':LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y"))),'WNBA':int(datetime.strftime(Today,"%Y"))}
+        
+        # --- Request the games of the current season
+        d = Functions[league][0](Year[league])
+        
+        # --- Get the playoffs games for the WNBA
+        if league=='WNBA':
+            d_PO = Functions[league][0](Year[league],True)
+            frames = [d, d_PO]
+            d = pd.concat(frames,ignore_index=True)
+        
+        # --- Put the date correctly formated
+        Today = datetime.strftime(Today,"%m/%d/%Y")
+        
+        # --- Write the date in a file
+        FileDate = open("date.txt","w") 
+        FileDate.write(Today)
+        FileDate.close()
+        
+        # --- Récuperer les indices des matchs de la nuit derniere
+        GameDates = []
+        Dates = list(d['DATE'])
+        for i in range(0,len(Dates)):
+            LaDate = datetime.strftime(Dates[i].to_pydatetime(),"%m/%d/%Y")
+            if LaDate==Today:GameDates.append(i)
+        
+        
+        for Game in  GameDates:
+            LaDate = datetime.strftime(d['DATE'][Game],"%Y-%m-%d")
+            Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
+            Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
+            df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
+        
+            # --- Get the Play by play score evolution
+            Period = [1]
+            Timer = [aQT[league]*60]
             ScoreMargin = [0]
-            for event in range(1,len(dfPBP[0]['GAME_ID'])):
-                Period.append(int(dfPBP[0]["PERIOD"][event]))
-                Timer.append(EnSecondes(dfPBP[0]["PCTIMESTRING"][event]))
-                LeScore = dfPBP[0]["SCOREMARGIN"][event]
-                if LeScore == None:
-                    ScoreMargin.append(ScoreMargin[-1])
-                elif LeScore == 'TIE':
-                    ScoreMargin.append(0)
-                else:
-                    ScoreMargin.append(int(LeScore))
+            NbAction = len(df[list(df)[0]])
+            for i in range (0,NbAction):
+                Period.append(df['QUARTER'][i])
+                Timer.append(EnSecondes(df['TIME_REMAINING'][i][:-2]))
+                # --- boucle pour toujours faire score vainqueur - score loser
+                if df[list(df)[4]][NbAction-1]>df[list(df)[5]][NbAction-1]:       
+                    ScoreMargin.append(df[list(df)[4]][i]-df[list(df)[5]][i])
+                else :
+                    ScoreMargin.append(df[list(df)[5]][i]-df[list(df)[4]][i])
+            Period.append(Period[-1])
+            Timer.append(0)
+            ScoreMargin.append(ScoreMargin[-1])
             
+            # --- To add 12:00 and 00:00 in between the QT
+            i = 1
+            while i < len(Period)-1:
+                if Timer[i]>Timer[i-1]:
+                    Period.insert(i,Period[i-1])
+                    Period.insert(i+1,Period[i-1]+1)
+                    Timer.insert(i,0)
+                    if Period[i-1]<=4:Timer.insert(i+1,aQT[league]*60)
+                    else:Timer.insert(i+1,300)
+                    ScoreMargin.insert(i,ScoreMargin[i-1])
+                    ScoreMargin.insert(i+1,ScoreMargin[i-1])
+                    i+=2
+                i+=1
+            
+            # --- Correct the Period list if there is overtime
+            for it in range(0,len(Period)):
+                if type(Period[it])==str:
+                    Period[it]=4+int(Period[it][0])
+                    
             # --- Correct the timer to put it in overall seconds
             OverallTimer = []
             for j in range(0,len(Timer)):
@@ -259,94 +410,15 @@ if 1==1:#LastDay!=Today:
         
         
         #    file.write(Date+' '+Matchup+' '+str(lanote)+'\n')
-            file.write('<tr><td style="text-align:center">'+DateEnLettre(Date)+'</td><td style="text-align:center">'+GameName(Matchup,LOGOS[league])+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
-        
-        
-        
-    #    
-    #        # --- Calculate the derivative of the score margin
-    #        PtPerSec = []
-    #        for j in range (0,len(OverallTimer)):
-    #            Remainin = OverallTimer[-1]-OverallTimer[j]
-    #            Ecart = ScoreMargin[j]
-    #            if Remainin!=0:PtPerSec.append(Ecart*60/Remainin)
-    #        
-    #        End = OverallTimer[-1]
-    #        while OverallTimer[-1]==End:
-    #            del OverallTimer[-1]
-                
-        #    # --- Plot the score evolution
-        #    fig, ax = plt.subplots(2,1)
-        #    fig.set_figheight(10)
-        #    fig.set_figwidth(10)
-        #    ax[0].plot(OverallTimer,ScoreMargin,'k')
-        #    
-        #    ax[0].set_title(Matchup+' on '+Date+' - id'+LeGame,fontsize = 15)
-        #    if Matchup[4]=='@':
-        #        ax[0].text(-150,0.5,Matchup[-3:],color = 'salmon')
-        #        ax[0].text(-150,-1,Matchup[:3],color = 'salmon')
-        #    else:
-        #        ax[0].text(-150,0.5,Matchup[:3],color = 'salmon')
-        #        ax[0].text(-150,-1,Matchup[-3:],color = 'salmon')    
-        #    ax[0].plot([-150,0],[0,0],':',color='salmon')
-        #    ax[0].plot([0,OverallTimer[-1]],[0,0],'salmon')
-        #    for j in range(2,Period[-1]+1):
-        #        Decal = sum([Timer[Period.index(x)] for x in range(1,j)])
-        #        ax[0].plot([Decal,Decal],[np.min(ScoreMargin),np.max(ScoreMargin)],'salmon')
-        #    ax[0].grid(axis='y')
-        #    ax[0].axis([-50,OverallTimer[-1]+50,-15,15])
-        #    ax[0].set_xlabel('Time (sec)',fontsize = 15)
-        #    ax[0].set_ylabel('Ecart',fontsize = 15)
-        #    ax[0].text(0,20,'EcartFinal:'+str(victory_margin),color = 'salmon')
-        #    ax[0].text(500,20,'OT ?:'+str(overtime),color = 'salmon')
-        #    ax[0].text(1000,20,'LastTie:'+str(last_tie//60)+':'+str(last_tie%60),color = 'salmon')
-        #    ax[0].text(1500,20,'Last2Po:'+str(last_2_pos//60)+':'+str(last_2_pos%60),color = 'salmon')
-        #    ax[0].text(2000,20,'BigLeadLoser:'+str(biggest_lead_loser),color = 'salmon')
-        #    ax[0].text(2500,20,'BigLead:'+str(biggest_lead),color = 'salmon')
-        #    ax[0].text(0,17.5,'Note = '+str(lanote),color = 'red')
-        #    
-        #    ax[1].plot(OverallTimer,PtPerSec,'g')
-        #
-        #    ax[1].grid(axis='y')
-        #    ax[1].axis([-50,OverallTimer[-1]+50,-5,5])
-        #    ax[1].set_xlabel('Time (sec)',fontsize = 15)
-        #    ax[1].set_ylabel('Pts per Min to egalize',fontsize = 15)
-        #    fig.savefig(Date+Matchup+'.png')
-        #    plt.close()
+            file.write('<tr><td style="text-align:center">'+DateEnLettre(LaDate)+'</td><td style="text-align:center">'+GameName(Team_Vis+' @ '+Team_Dom,LOGOS[league],league)+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
     
+        
     if len(lines)>201:
         for l in lines[1:200]:file.write(l[0]+'\n')
         file.write(lines[-1][0]+'\n')
     else:
         for l in lines[1:]:file.write(l[0]+'\n')    
         
-    #file.write(</table></center><br><center><img src="https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg" width="70"></center></html><center><script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=b549e3c4b028c3fa45765f9028b5a850f0e8bb22'></script><script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/954972/t/3"></script></center></html>')
     file.close()
+
     
-        
-        
-        
-        
-        ## --- Write an extraction in a text file
-        #file = open("DATA.txt","w") 
-        #for col in dfPBP[0]:
-        #    file.write(col+'\t')
-        #file.write('\n')
-        #for game in range(0,len(dfPBP[0]['GAME_ID'])):
-        #    for col in dfPBP[0]:
-        #        file.write(str(dfPBP[0][col][game])+'\t')
-        #    file.write('\n')
-        #file.close()
-
-
-COMMIT_MESSAGE = Today
-
-def git_push():
-
-    repo = git.Repo(PATH_OF_GIT_REPO)
-    repo.git.add(update=True)
-    repo.index.commit(COMMIT_MESSAGE)
-    origin = repo.remote(name='origin')
-    origin.push()
-
-git_push()
