@@ -386,8 +386,11 @@ for ld in LesDates:
                     ScoreMargin.insert(i+1,ScoreMargin[i-1])
                     i+=2
                 i+=1
-                    
-                    
+            
+            # --- Correct the Period list if there is overtime
+            for it in range(0,len(Period)):
+                if type(Period[it])==str:
+                    Period[it]=4+int(Period[it][0])
                     
             # --- Correct the timer to put it in overall seconds
             OverallTimer = []
