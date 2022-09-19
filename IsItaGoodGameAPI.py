@@ -373,6 +373,14 @@ for ld in LesDates:
             Timer.append(0)
             ScoreMargin.append(ScoreMargin[-1])
             
+            # --- Artificially rewrite the Period list because it can have some bug in the scrap
+            NewPeriod = [1]
+            leQT = 1
+            for i in range(1,len(Timer)):
+                if Timer[i-1]<Timer[i]:leQT+=1
+                NewPeriod.append(leQT)
+            Period = NewPeriod        
+            
             # --- To add 12:00 and 00:00 in between the QT
             i = 1
             while i < len(Period)-1:
