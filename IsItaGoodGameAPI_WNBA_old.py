@@ -30,54 +30,95 @@ NoteHtml = {0:EMPTY,
             2:FULL+FULL,
             3:FULL+FULL+FULL}
 
-LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg','BKN':'https://upload.wikimedia.org/wikipedia/commons/4/44/Brooklyn_Nets_newlogo.svg','NYK':'https://upload.wikimedia.org/wikipedia/en/2/25/New_York_Knicks_logo.svg',
-'PHI':'https://upload.wikimedia.org/wikipedia/en/0/0e/Philadelphia_76ers_logo.svg','TOR':'https://upload.wikimedia.org/wikipedia/en/3/36/Toronto_Raptors_logo.svg','CHI':'https://upload.wikimedia.org/wikipedia/en/6/67/Chicago_Bulls_logo.svg',
-'CLE':'https://upload.wikimedia.org/wikipedia/en/4/4b/Cleveland_Cavaliers_logo.svg','DET':'https://upload.wikimedia.org/wikipedia/commons/7/7c/Pistons_logo17.svg','IND':'https://upload.wikimedia.org/wikipedia/en/1/1b/Indiana_Pacers.svg',
-'MIL':'https://upload.wikimedia.org/wikipedia/en/4/4a/Milwaukee_Bucks_logo.svg','ATL':'https://upload.wikimedia.org/wikipedia/en/2/24/Atlanta_Hawks_logo.svg','CHA':'https://upload.wikimedia.org/wikipedia/en/c/c4/Charlotte_Hornets_%282014%29.svg',
-'MIA':'https://upload.wikimedia.org/wikipedia/en/f/fb/Miami_Heat_logo.svg','ORL':'https://upload.wikimedia.org/wikipedia/en/1/10/Orlando_Magic_logo.svg','WAS':'https://upload.wikimedia.org/wikipedia/en/0/02/Washington_Wizards_logo.svg',
-'DEN':'https://upload.wikimedia.org/wikipedia/en/7/76/Denver_Nuggets.svg','MIN':'https://upload.wikimedia.org/wikipedia/en/c/c2/Minnesota_Timberwolves_logo.svg','OKC':'https://upload.wikimedia.org/wikipedia/en/5/5d/Oklahoma_City_Thunder.svg',
-'POR':'https://upload.wikimedia.org/wikipedia/en/2/21/Portland_Trail_Blazers_logo.svg','UTA':'https://upload.wikimedia.org/wikipedia/en/5/52/Utah_Jazz_logo_2022.svg',
-'GSW':'https://upload.wikimedia.org/wikipedia/en/0/01/Golden_State_Warriors_logo.svg','LAC':'https://upload.wikimedia.org/wikipedia/en/b/bb/Los_Angeles_Clippers_%282015%29.svg',
-'LAL':'https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg','PHX':'https://upload.wikimedia.org/wikipedia/en/d/dc/Phoenix_Suns_logo.svg','SAC':'https://upload.wikimedia.org/wikipedia/en/c/c7/SacramentoKings.svg',
-'DAL':'https://upload.wikimedia.org/wikipedia/en/9/97/Dallas_Mavericks_logo.svg','HOU':'https://upload.wikimedia.org/wikipedia/en/2/28/Houston_Rockets.svg','MEM':'https://upload.wikimedia.org/wikipedia/en/f/f1/Memphis_Grizzlies.svg',
-'NOP':'https://upload.wikimedia.org/wikipedia/en/0/0d/New_Orleans_Pelicans_logo.svg','SAS':'https://upload.wikimedia.org/wikipedia/en/a/a2/San_Antonio_Spurs.svg'},
+LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg',
+'BKN':'https://upload.wikimedia.org/wikipedia/commons/4/44/Brooklyn_Nets_newlogo.svg',
+'NYK':'https://upload.wikimedia.org/wikipedia/en/2/25/New_York_Knicks_logo.svg',
+'PHI':'https://upload.wikimedia.org/wikipedia/en/0/0e/Philadelphia_76ers_logo.svg',
+'TOR':'https://upload.wikimedia.org/wikipedia/en/3/36/Toronto_Raptors_logo.svg',
+'CHI':'https://upload.wikimedia.org/wikipedia/en/6/67/Chicago_Bulls_logo.svg',
+'CLE':'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cleveland_Cavaliers_logo.svg/800px-Cleveland_Cavaliers_logo.svg.png',
+'DET':'https://upload.wikimedia.org/wikipedia/commons/7/7c/Pistons_logo17.svg',
+'IND':'https://upload.wikimedia.org/wikipedia/en/1/1b/Indiana_Pacers.svg',
+'MIL':'https://upload.wikimedia.org/wikipedia/en/4/4a/Milwaukee_Bucks_logo.svg',
+'ATL':'https://upload.wikimedia.org/wikipedia/en/2/24/Atlanta_Hawks_logo.svg',
+'CHA':'https://upload.wikimedia.org/wikipedia/en/c/c4/Charlotte_Hornets_%282014%29.svg',
+'MIA':'https://upload.wikimedia.org/wikipedia/en/f/fb/Miami_Heat_logo.svg',
+'ORL':'https://upload.wikimedia.org/wikipedia/en/1/10/Orlando_Magic_logo.svg',
+'WAS':'https://upload.wikimedia.org/wikipedia/en/0/02/Washington_Wizards_logo.svg',
+'DEN':'https://upload.wikimedia.org/wikipedia/en/7/76/Denver_Nuggets.svg',
+'MIN':'https://upload.wikimedia.org/wikipedia/en/c/c2/Minnesota_Timberwolves_logo.svg',
+'OKC':'https://upload.wikimedia.org/wikipedia/en/5/5d/Oklahoma_City_Thunder.svg',
+'POR':'https://upload.wikimedia.org/wikipedia/en/2/21/Portland_Trail_Blazers_logo.svg',
+'UTA':'https://upload.wikimedia.org/wikipedia/en/5/52/Utah_Jazz_logo_2022.svg',
+'GSW':'https://upload.wikimedia.org/wikipedia/en/0/01/Golden_State_Warriors_logo.svg',
+'LAC':'https://upload.wikimedia.org/wikipedia/en/b/bb/Los_Angeles_Clippers_%282015%29.svg',
+'LAL':'https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg',
+'PHX':'https://upload.wikimedia.org/wikipedia/en/d/dc/Phoenix_Suns_logo.svg',
+'SAC':'https://upload.wikimedia.org/wikipedia/en/c/c7/SacramentoKings.svg',
+'DAL':'https://upload.wikimedia.org/wikipedia/en/9/97/Dallas_Mavericks_logo.svg',
+'HOU':'https://upload.wikimedia.org/wikipedia/en/2/28/Houston_Rockets.svg',
+'MEM':'https://upload.wikimedia.org/wikipedia/en/f/f1/Memphis_Grizzlies.svg',
+'NOP':'https://upload.wikimedia.org/wikipedia/en/0/0d/New_Orleans_Pelicans_logo.svg',
+'SAS':'https://upload.wikimedia.org/wikipedia/en/a/a2/San_Antonio_Spurs.svg'},
 'WNBA':{"ATL":"https://upload.wikimedia.org/wikipedia/en/5/54/Atlanta_Dream_logo.svg","CHI":"https://upload.wikimedia.org/wikipedia/en/f/fc/Chicago_Sky_logo.svg","CON":"https://upload.wikimedia.org/wikipedia/en/0/09/Connecticut_Sun_logo.svg",
 "DAL":"https://upload.wikimedia.org/wikipedia/en/9/95/Dallas_Wings_logo.svg","IND":"https://upload.wikimedia.org/wikipedia/en/5/54/Indiana_Fever_logo.svg","LAS":"https://upload.wikimedia.org/wikipedia/en/9/9f/Los_Angeles_Sparks_logo.svg",
 "LVA":"https://upload.wikimedia.org/wikipedia/en/f/fb/Las_Vegas_Aces_logo.svg","MIN":"https://upload.wikimedia.org/wikipedia/en/7/75/Minnesota_Lynx_logo.svg","NYL":"https://upload.wikimedia.org/wikipedia/en/a/a1/New_York_Liberty_logo.svg",
 "PHO":"https://upload.wikimedia.org/wikipedia/en/a/a6/Phoenix_Mercury_logo.svg","SEA":"https://upload.wikimedia.org/wikipedia/en/a/a0/Seattle_Storm_%282021%29_logo.svg","WAS":"https://upload.wikimedia.org/wikipedia/en/7/79/Washington_Mystics_logo.svg"}
 }
 
-TeamsAbbr = {'ATL':'Atlanta Dream',
-'CHI':'Chicago Sky',
-'CON':'Connecticut Sun',
-'LAS':'Los Angeles Sparks',
-'NYL':'New York Liberty',
-'WAS':'Washington Mystics',
-'DAL':'Dallas Wings',
-'LVA':'Las Vegas Aces',
-'PHO':'Phoenix Mercury',
-'IND':'Indiana Fever',
-'MIN':'Minnesota Lynx',
-'SEA':'Seattle Storm'
-}
+
+TeamsAbbr = {'NBA':{'BOS':'Boston Celtics',
+'NYK':'New York Knicks',
+'ATL':'Atlanta Hawks',
+'BKN':'Brooklyn Nets',
+'CHA':'Charlotte Hornets',
+'CHI':'Chicago Bulls',
+'CLE':'Cleveland Cavaliers',
+'DAL':'Dallas Mavericks',
+'DEN':'Denver Nuggets',
+'DET':'Detroit Pistons',
+'GSW':'Golden State Warriors',
+'HOU':'Houston Rockets',
+'IND':'Indiana Pacers',
+'LAC':'Los Angeles Clippers',
+'LAL':'Los Angeles Lakers',
+'MEM':'Memphis Grizzlies',
+'MIA':'Miami Heat',
+'MIL':'Milwaukee Bucks',
+'MIN':'Minnesota Timberwolves',
+'NOP':'New Orleans Pelicans',
+'OKC':'Oklahoma City Thunder',
+'ORL':'Orlando Magic',
+'PHI':'Philadelphia 76ers',
+'PHX':'Phoenix Suns',
+'POR':'Portland Trail Blazers',
+'SAC':'Sacramento Kings',
+'SAS':'San Antonio Spurs',
+'TOR':'Toronto Raptors',
+'UTA':'Utah Jazz',
+'WAS':'Washington Wizards'},
+'WNBA':{'ATL':'Atlanta Dream','CHI':'Chicago Sky','DAL':'Dallas Wings','LVA':'Las Vegas Aces','PHO':'Phoenix Mercury','SEA':'Seattle Storm',
+'MIN':'Minnesota Lynx','WAS':'Washington Mystics','LAS':'Los Angeles Sparks','NYL':'New York Liberty','CON':'Connecticut Sun','IND':'Indiana Fever'}}
+
+
 
 aQT = {'NBA':12,'WNBA':10}
 
 ligId = {'NBA':'00','WNBA':'10'}
 
 
-Leagues = ['WNBA']
+Leagues = ['NBA']
 #---
 #       FUNCTIONS
 #---
 
-def GameName(g,DicoLogo):  # dicologo est le dictionnaire correspondant aux teams de la ligue
+def GameName(g,DicoLogo,TeamsA):  # dicologo est le dictionnaire correspondant aux teams de la ligue
     matchup = g[4:-4]
     Tm1 = g[:3]
     Tm2 = g[-3:]
     if Tm1 in DicoLogo and Tm2 in DicoLogo:
-        if matchup=='@':return('<img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[Tm1]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[Tm2]+'">')
-        if matchup=='vs.':return('<img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsAbbr[Tm2]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsAbbr[Tm1]+'">')
+        if matchup=='@':return('<img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsA[Tm1]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsA[Tm2]+'">')
+        if matchup=='vs.':return('<img src="'+DicoLogo[Tm2]+'" width="15" title="'+TeamsA[Tm2]+'">  <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/At_sign.svg" width="10"> <img src="'+DicoLogo[Tm1]+'" width="15" title="'+TeamsA[Tm1]+'">')
     else:
         if matchup=='@':return(g)
         if matchup=='vs.':return(Tm2+' @ '+Tm1)
@@ -259,7 +300,7 @@ if 1==1:#LastDay!=Today:
 
 
         #    file.write(Date+' '+Matchup+' '+str(lanote)+'\n')
-            file.write('<tr><td style="text-align:center">'+DateEnLettre(Date)+'</td><td style="text-align:center">'+GameName(Matchup,LOGOS[league])+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
+            file.write('<tr><td style="text-align:center">'+DateEnLettre(Date)+'</td><td style="text-align:center">'+GameName(Matchup,LOGOS[league],TeamsAbbr[league])+'</td><td style="text-align:center">'+NoteHtml[lanote]+'</td></tr>\n')
 
 
 
