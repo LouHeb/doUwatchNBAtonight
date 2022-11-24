@@ -244,6 +244,9 @@ def get_schedule_WNBA(season, playoffs=False):
 
 def get_game_suffix_WNBA(date, team1, team2):
     return('/'+date[0:4]+date[5:7]+date[8:10]+'0'+team2+".html")
+    
+def get_game_suffix(date, team1, team2):
+    return('/'+date[0:4]+date[5:7]+date[8:10]+'0'+team2+".html")
 
 def get_pbp_WNBA_helper_WNBA(suffix):
     r = get(f'https://www.basketball-reference.com/wnba/boxscores/pbp{suffix}')
