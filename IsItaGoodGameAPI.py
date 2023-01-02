@@ -89,10 +89,12 @@ Leagues = ['NBA','WNBA']
 #       FUNCTIONS
 #---
 
-
-def LaSaison(M,Y):
-    if M>=9:return(Y+1)
-    else:return(Y)
+def LaSaison(M,Y,L):
+    if L == 'NBA':
+        if M>=9:return(Y+1)
+        else:return(Y)
+    elif L == 'WNBA':
+        if M<=5:return(Y-1)
 
 def GameName(g,DicoLogo,l):  # dicologo est le dictionnaire correspondant aux teams de la ligue
     matchup = g[4:-4]
@@ -326,7 +328,7 @@ for ld in LesDates:
         TeamsAbbr_inv = {TeamsAbbr[league][x]:x for x in TeamsAbbr[league]}
         
         # --- Get the season's last year
-        Year = {'NBA':LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y"))),'WNBA':int(datetime.strftime(Today,"%Y"))}
+        Year = {'NBA':LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y")),'NBA'),'WNBA':LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y")),'WNBA')}
         
         # --- Request the games of the current season
         d = Functions[league][0](Year[league])
