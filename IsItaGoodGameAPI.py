@@ -436,7 +436,7 @@ for ld in LesDates:
     file.close()
             
 # --- Get if it was run today
-Checkfile = open("Check.txt")
+Checkfile = open("Check.txt","w")
 Checkfile.write(str(Yesterday.hour))
 Checkfile.close
 
