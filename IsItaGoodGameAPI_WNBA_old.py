@@ -10,9 +10,9 @@ import git
 
 #os.chdir("github/doUwatchNBAtonight/")
 
-PATH_OF_GIT_REPO = r'~/github/doUwatchNBAtonight/'  # make sure .git folder is properly configured
-g = git.cmd.Git(PATH_OF_GIT_REPO)
-g.pull()
+#PATH_OF_GIT_REPO = r'~/github/doUwatchNBAtonight/'  # make sure .git folder is properly configured
+#g = git.cmd.Git(PATH_OF_GIT_REPO)
+#g.pull()
 
 #---
 #       DICTIONNARIES
@@ -382,12 +382,12 @@ if 1==1:#LastDay!=Today:
 
 COMMIT_MESSAGE = Today
 
-def git_push():
-
-    repo = git.Repo(PATH_OF_GIT_REPO)
-    repo.git.add(update=True)
-    repo.index.commit(COMMIT_MESSAGE)
-    origin = repo.remote(name='origin')
-    origin.push()
-
-git_push()
+#def git_push():
+#
+#    repo = git.Repo(PATH_OF_GIT_REPO)
+#    repo.git.add(update=True)
+#    repo.index.commit(COMMIT_MESSAGE)
+#    origin = repo.remote(name='origin')
+#    origin.push()
+#
+#git_push()
