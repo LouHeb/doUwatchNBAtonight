@@ -40,7 +40,7 @@ LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Cel
 'NOP':'https://upload.wikimedia.org/wikipedia/en/0/0d/New_Orleans_Pelicans_logo.svg','SAS':'https://upload.wikimedia.org/wikipedia/en/a/a2/San_Antonio_Spurs.svg'},
 'WNBA':{"ATL":"https://upload.wikimedia.org/wikipedia/en/5/54/Atlanta_Dream_logo.svg","CHI":"https://upload.wikimedia.org/wikipedia/en/f/fc/Chicago_Sky_logo.svg","CON":"https://upload.wikimedia.org/wikipedia/en/0/09/Connecticut_Sun_logo.svg",
 "DAL":"https://upload.wikimedia.org/wikipedia/en/9/95/Dallas_Wings_logo.svg","IND":"https://upload.wikimedia.org/wikipedia/en/5/54/Indiana_Fever_logo.svg","LAS":"https://upload.wikimedia.org/wikipedia/en/9/9f/Los_Angeles_Sparks_logo.svg",
-"LVA":"https://upload.wikimedia.org/wikipedia/en/f/fb/Las_Vegas_Aces_logo.svg","MIN":"https://upload.wikimedia.org/wikipedia/en/7/75/Minnesota_Lynx_logo.svg","NYL":"https://upload.wikimedia.org/wikipedia/en/a/a1/New_York_Liberty_logo.svg",
+"LVA":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Las_Vegas_Aces_logo.svg/800px-Las_Vegas_Aces_logo.svg.png","MIN":"https://upload.wikimedia.org/wikipedia/en/7/75/Minnesota_Lynx_logo.svg","NYL":"https://upload.wikimedia.org/wikipedia/en/a/a1/New_York_Liberty_logo.svg",
 "PHO":"https://upload.wikimedia.org/wikipedia/en/a/a6/Phoenix_Mercury_logo.svg","SEA":"https://upload.wikimedia.org/wikipedia/en/a/a0/Seattle_Storm_%282021%29_logo.svg","WAS":"https://upload.wikimedia.org/wikipedia/en/7/79/Washington_Mystics_logo.svg"}
 }
 
@@ -94,7 +94,7 @@ def LaSaison(M,Y,L):
         if M>=9:return(Y+1)
         else:return(Y)
     elif L == 'WNBA':
-        if M<=5:return(Y-1)
+        if M>=5:return(Y)
 
 def GameName(g,DicoLogo,l):  # dicologo est le dictionnaire correspondant aux teams de la ligue
     matchup = g[4:-4]
@@ -310,6 +310,25 @@ Last = datetime.strptime(lines[0][0], '%m/%d/%Y')
 # --- Get yesterday date
 Yesterday = datetime.now() - timedelta(1)
 
+
+# --- Get the schedules from the API
+SeasonApiExtracted = {}
+for league in Leagues:
+    # --- Get the season's last year
+    Year = {'NBA':LaSaison(int(datetime.strftime(Yesterday,"%m")),int(datetime.strftime(Yesterday,"%Y")),'NBA'),'WNBA':LaSaison(int(datetime.strftime(Yesterday,"%m")),int(datetime.strftime(Yesterday,"%Y")),'WNBA')}
+    
+    # --- Request the games of the current season
+    dextr = Functions[league][0](Year[league])
+    
+    # --- Get the playoffs games for the WNBA
+    if league=='WNBA':
+        d_PO = Functions[league][0](Year[league],True)
+        frames = [dextr, d_PO]
+        dextr = pd.concat(frames,ignore_index=True)
+    
+    SeasonApiExtracted[league] = dextr
+
+
 # --- Evaluate the days between last run    
 LesDates = date_range(Last, Yesterday)
 
@@ -328,18 +347,8 @@ for ld in LesDates:
         
         TeamsAbbr_inv = {TeamsAbbr[league][x]:x for x in TeamsAbbr[league]}
         
-        # --- Get the season's last year
-        Year = {'NBA':LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y")),'NBA'),'WNBA':LaSaison(int(datetime.strftime(Today,"%m")),int(datetime.strftime(Today,"%Y")),'WNBA')}
-        
-        # --- Request the games of the current season
-        d = Functions[league][0](Year[league])
-        
-        # --- Get the playoffs games for the WNBA
-        if league=='WNBA':
-            d_PO = Functions[league][0](Year[league],True)
-            frames = [d, d_PO]
-            d = pd.concat(frames,ignore_index=True)
-        
+        d = SeasonApiExtracted[league]
+                
         # --- Put the date correctly formated
         Today = datetime.strftime(Today,"%m/%d/%Y")
         
