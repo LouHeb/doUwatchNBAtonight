@@ -310,6 +310,13 @@ Last = datetime.strptime(lines[0][0], '%m/%d/%Y')
 # --- Get yesterday date
 Yesterday = datetime.now() - timedelta(1)
 
+# --- Put the date correctly formated
+YestWrite = datetime.strftime(Yesterday,"%m/%d/%Y")
+
+# --- Write the date in a file
+FileDate = open("date.txt","w") 
+FileDate.write(YestWrite)
+FileDate.close()
 
 # --- Get the schedules from the API
 SeasonApiExtracted = {}
@@ -352,10 +359,10 @@ for ld in LesDates:
         # --- Put the date correctly formated
         Today = datetime.strftime(Today,"%m/%d/%Y")
         
-        # --- Write the date in a file
-        FileDate = open("date.txt","w") 
-        FileDate.write(Today)
-        FileDate.close()
+#        # --- Write the date in a file
+#        FileDate = open("date.txt","w") 
+#        FileDate.write(Today)
+#        FileDate.close()
         
         # --- Récuperer les indices des matchs de la nuit derniere
         GameDates = []
