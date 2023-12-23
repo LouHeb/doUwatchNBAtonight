@@ -338,6 +338,7 @@ for league in Leagues:
 
 # --- Evaluate the days between last run    
 LesDates = date_range(Last, Yesterday)
+LesDates = [Yesterday]
 
 for ld in LesDates:
     
