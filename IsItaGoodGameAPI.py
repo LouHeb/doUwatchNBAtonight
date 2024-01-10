@@ -95,6 +95,7 @@ def LaSaison(M,Y,L):
         else:return(Y)
     elif L == 'WNBA':
         if M>=5:return(Y)
+        else:return(Y-1)
 
 def GameName(g,DicoLogo,l):  # dicologo est le dictionnaire correspondant aux teams de la ligue
     matchup = g[4:-4]
