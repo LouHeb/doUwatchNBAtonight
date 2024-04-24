@@ -4,8 +4,8 @@
 
 import numpy as np
 from datetime import datetime, timedelta
-from basketball-reference-scraper.seasons import get_schedule
-from basketball-reference-scraper.pbp import get_pbp
+#from basketball_reference_scraper.seasons import get_schedule
+#from basketball_reference_scraper.pbp import get_pbp
 import pandas as pd
 from requests import get
 from bs4 import BeautifulSoup
@@ -193,6 +193,111 @@ def Stars(temps,margin,lig):        # lig est nba ou wnba
     return(note)
     
     
+# Functions to scrap basketball reference for the NBA
+def get_schedule(season, playoffs=False):
+    months = ['October', 'November', 'December', 'January', 'February', 'March',
+            'April', 'May', 'June']
+    if season==2020:
+        months = ['October-2019', 'November', 'December', 'January', 'February', 'March',
+                'July', 'August', 'September', 'October-2020']
+    df = pd.DataFrame()
+    for month in months:
+        r = get(f'https://www.basketball-reference.com/leagues/NBA_{season}_games-{month.lower()}.html')
+        if r.status_code==200:
+            soup = BeautifulSoup(r.content, 'html.parser')
+            table = soup.find('table', attrs={'id': 'schedule'})
+            if table:
+                month_df = pd.read_html(str(table))[0]
+                df = pd.concat([df, month_df])
+
+    df = df.reset_index()
+
+    cols_to_remove = [i for i in df.columns if 'Unnamed' in i]
+    cols_to_remove += [i for i in df.columns if 'Notes' in i]
+    cols_to_remove += [i for i in df.columns if 'Start' in i]
+    cols_to_remove += [i for i in df.columns if 'Attend' in i]
+    cols_to_remove += [i for i in df.columns if 'Arena' in i]
+    cols_to_remove += ['index']
+    df = df.drop(cols_to_remove, axis=1)
+    df.columns = ['DATE', 'VISITOR', 'VISITOR_PTS', 'HOME', 'HOME_PTS']
+
+    if season==2020:
+        df = df[df['DATE']!='Playoffs']
+        df['DATE'] = df['DATE'].apply(lambda x: pd.to_datetime(x))
+        df = df.sort_values(by='DATE')
+        df = df.reset_index().drop('index', axis=1)
+        playoff_loc = df[df['DATE']==pd.to_datetime('2020-08-17')].head(n=1)
+        if len(playoff_loc.index)>0:
+            playoff_index = playoff_loc.index[0]
+        else:
+            playoff_index = len(df)
+        if playoffs:
+            df = df[playoff_index:]
+        else:
+            df = df[:playoff_index]
+    else:
+        # account for 1953 season where there's more than one "playoffs" header
+        if season == 1953:
+            df.drop_duplicates(subset=['DATE', 'HOME', 'VISITOR'], inplace=True)
+        playoff_loc = df[df['DATE']=='Playoffs']
+        if len(playoff_loc.index)>0:
+            playoff_index = playoff_loc.index[0]
+        else:
+            playoff_index = len(df)
+        if playoffs:
+            df = df[playoff_index+1:]
+        else:
+            df = df[:playoff_index]
+        df['DATE'] = df['DATE'].apply(lambda x: pd.to_datetime(x))
+    return df
+
+    
+def get_pbp_helper(suffix):
+    r = get(f'https://www.basketball-reference.com/boxscores/pbp{suffix}')
+    if r.status_code==200:
+        soup = BeautifulSoup(r.content, 'html.parser')
+        table = soup.find('table', attrs={'id': 'pbp'})
+        return pd.read_html(str(table))[0]
+
+        
+def format_df(df1):
+    df1.columns = list(map(lambda x: x[1], list(df1.columns)))
+    t1 = list(df1.columns)[1].upper()
+    t2 = list(df1.columns)[5].upper()
+    q = 1
+    df = None
+    for index, row in df1.iterrows():
+        d = {'QUARTER': float('nan'), 'TIME_REMAINING': float('nan'), f'{t1}_ACTION': float('nan'), f'{t2}_ACTION': float('nan'), f'{t1}_SCORE': float('nan'), f'{t2}_SCORE': float('nan')}
+        if row['Time']=='2nd Q':
+            q = 2
+        elif row['Time']=='3rd Q':
+            q = 3
+        elif row['Time']=='4th Q':
+            q = 4
+        elif 'OT' in row['Time']:
+            q = row['Time'][0]+'OT'
+        try:
+            d['QUARTER'] = q
+            d['TIME_REMAINING'] = row['Time']
+            scores = row['Score'].split('-')
+            d[f'{t1}_SCORE'] = int(scores[0])
+            d[f'{t2}_SCORE'] = int(scores[1])
+            d[f'{t1}_ACTION'] = row[list(df1.columns)[1]]
+            d[f'{t2}_ACTION'] = row[list(df1.columns)[5]]
+            if df is None:
+                df = pd.DataFrame(columns = list(d.keys()))
+            df = df.append(d, ignore_index=True)
+        except:
+            continue
+    return df
+
+def get_pbp(date, team1, team2):
+    suffix = get_game_suffix(date, team1, team2)#.replace('/boxscores', '')
+    date = pd.to_datetime(date)
+    df = get_pbp_helper(suffix)
+    df = format_df(df)
+    return df      
+
 # Functions to scrap basketball reference for the WNBA
 def get_schedule_WNBA(season, playoffs=False):
     df = pd.DataFrame()
@@ -379,7 +484,6 @@ for ld in LesDates:
             Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
             Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
             df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
-            print(df)
         
             # --- Get the Play by play score evolution
             Period = [1]
