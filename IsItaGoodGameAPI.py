@@ -4,8 +4,10 @@
 
 import numpy as np
 from datetime import datetime, timedelta
-from basketball_reference_scraper.seasons import get_schedule
-from basketball_reference_scraper.pbp import get_pbp
+#from basketball_reference_scraper.seasons import get_schedule
+#from basketball_reference_scraper.pbp import get_pbp
+from seasons import get_schedule
+from pbp import get_pbp
 import pandas as pd
 from requests import get
 from bs4 import BeautifulSoup
@@ -437,11 +439,6 @@ for ld in LesDates:
             biggest_lead = BigestLead(OverallTimer,ScoreMargin)    
             victory_margin = VictoryMargin(OverallTimer,ScoreMargin)   
             overtime = OverTime(OverallTimer,ScoreMargin,aQT[league])
-            print(Game)
-            print(GameDates)
-            print(OverallTimer)
-            print(ScoreMargin)
-            print(league)
             lanote = Stars(OverallTimer,ScoreMargin,league)
         
         
