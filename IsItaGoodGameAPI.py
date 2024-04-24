@@ -4,8 +4,8 @@
 
 import numpy as np
 from datetime import datetime, timedelta
-from basketball_reference_scraper.seasons import get_schedule
-from basketball_reference_scraper.pbp import get_pbp
+from basketball-reference-scraper.seasons import get_schedule
+from basketball-reference-scraper.pbp import get_pbp
 import pandas as pd
 from requests import get
 from bs4 import BeautifulSoup
