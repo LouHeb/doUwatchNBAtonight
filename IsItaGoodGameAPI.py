@@ -4,10 +4,8 @@
 
 import numpy as np
 from datetime import datetime, timedelta
-#from basketball_reference_scraper.seasons import get_schedule
-#from basketball_reference_scraper.pbp import get_pbp
-from seasons import get_schedule
-from pbp import get_pbp
+from basketball_reference_scraper.seasons import get_schedule
+from basketball_reference_scraper.pbp import get_pbp
 import pandas as pd
 from requests import get
 from bs4 import BeautifulSoup
@@ -381,6 +379,7 @@ for ld in LesDates:
             Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
             Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
             df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
+            print(df)
         
             # --- Get the Play by play score evolution
             Period = [1]
