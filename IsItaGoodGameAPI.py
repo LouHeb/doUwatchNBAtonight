@@ -437,6 +437,11 @@ for ld in LesDates:
             biggest_lead = BigestLead(OverallTimer,ScoreMargin)    
             victory_margin = VictoryMargin(OverallTimer,ScoreMargin)   
             overtime = OverTime(OverallTimer,ScoreMargin,aQT[league])
+            print(Game)
+            print(GameDates)
+            print(OverallTimer)
+            print(ScoreMargin)
+            print(league)
             lanote = Stars(OverallTimer,ScoreMargin,league)
         
         
