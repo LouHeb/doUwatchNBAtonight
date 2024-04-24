@@ -484,7 +484,6 @@ for ld in LesDates:
             Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
             Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
             df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
-            print(df)
         
             # --- Get the Play by play score evolution
             Period = [1]
