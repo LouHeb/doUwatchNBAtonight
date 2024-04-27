@@ -479,70 +479,25 @@ for ld in LesDates:
             if LaDate==Today:GameDates.append(i)
         
         
-        for Game in  GameDates[0:1]:
+        for Game in  GameDates:
             LaDate = datetime.strftime(d['DATE'][Game],"%Y-%m-%d")
             Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
             Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
-            
-            suffix = get_game_suffix(LaDate,Team_Vis,Team_Dom)
-            # date = pd.to_datetime(LaDate)
-            dfo = get_pbp_helper(suffix)
-            
-            dfo.columns = list(map(lambda x: x[1], list(dfo.columns)))
-            t1 = list(dfo.columns)[1].upper()
-            t2 = list(dfo.columns)[5].upper()
-            q = 1
-            Ledf = None
-
-            print('ok1')
-            print(Ledf)
-            
-            for index, row in dfo.iterrows():
-                d = {'QUARTER': float('nan'), 'TIME_REMAINING': float('nan'), f'{t1}_ACTION': float('nan'), f'{t2}_ACTION': float('nan'), f'{t1}_SCORE': float('nan'), f'{t2}_SCORE': float('nan')}
-                if row['Time']=='2nd Q':
-                    q = 2
-                elif row['Time']=='3rd Q':
-                    q = 3
-                elif row['Time']=='4th Q':
-                    q = 4
-                elif 'OT' in row['Time']:
-                    q = row['Time'][0]+'OT'
-                try:
-                    d['QUARTER'] = q
-                    d['TIME_REMAINING'] = row['Time']
-                    scores = row['Score'].split('-')
-                    d[f'{t1}_SCORE'] = int(scores[0])
-                    d[f'{t2}_SCORE'] = int(scores[1])
-                    d[f'{t1}_ACTION'] = row[list(dfo.columns)[1]]
-                    d[f'{t2}_ACTION'] = row[list(dfo.columns)[5]]
-                    if Ledf is None:
-                        Ledf = pd.DataFrame(columns = list(d.keys()))
-                    Ledf = Ledf.append(d, ignore_index=True)
-                    print(d)
-                except:
-                    continue
-            
-            print('ok2')
-            
-            # Ledf = format_df(dfo)
-            
-            
-            # Ledf = Functions[league][1](LaDate,Team_Vis,Team_Dom)
-            print(Ledf)
-            
+            df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
+        
             # --- Get the Play by play score evolution
             Period = [1]
             Timer = [aQT[league]*60]
             ScoreMargin = [0]
-            NbAction = len(Ledf[list(Ledf)[0]])
+            NbAction = len(df[list(df)[0]])
             for i in range (0,NbAction):
-                Period.append(Ledf['QUARTER'][i])
-                Timer.append(EnSecondes(Ledf['TIME_REMAINING'][i][:-2]))
+                Period.append(df['QUARTER'][i])
+                Timer.append(EnSecondes(df['TIME_REMAINING'][i][:-2]))
                 # --- boucle pour toujours faire score vainqueur - score loser
-                if Ledf[list(Ledf)[4]][NbAction-1]>Ledf[list(Ledf)[5]][NbAction-1]:       
-                    ScoreMargin.append(Ledf[list(Ledf)[4]][i]-Ledf[list(Ledf)[5]][i])
+                if df[list(df)[4]][NbAction-1]>df[list(df)[5]][NbAction-1]:       
+                    ScoreMargin.append(df[list(df)[4]][i]-df[list(df)[5]][i])
                 else :
-                    ScoreMargin.append(Ledf[list(Ledf)[5]][i]-Ledf[list(Ledf)[4]][i])
+                    ScoreMargin.append(df[list(df)[5]][i]-df[list(df)[4]][i])
             Period.append(Period[-1])
             Timer.append(0)
             ScoreMargin.append(ScoreMargin[-1])
