@@ -534,7 +534,7 @@ for ld in LesDates:
                     print(df)
                 except:
                     continue
-
+            print('ok')
             print(df)
 
             df = format_df(df)
