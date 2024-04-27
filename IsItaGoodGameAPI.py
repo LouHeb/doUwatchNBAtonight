@@ -528,10 +528,10 @@ for ld in LesDates:
                     d[f'{t2}_SCORE'] = int(scores[1])
                     d[f'{t1}_ACTION'] = row[list(ddd.columns)[1]]
                     d[f'{t2}_ACTION'] = row[list(ddd.columns)[5]]
-                    print(d)
                     if df is None:
                         df = pd.DataFrame(columns = list(d.keys()))
                     df = df.append(d, ignore_index=True)
+                    print(df)
                 except:
                     continue
 
