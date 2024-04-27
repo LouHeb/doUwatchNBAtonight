@@ -489,7 +489,7 @@ for ld in LesDates:
             print(DDD)
             
             
-            DDD.columns = list(map(lambda x: x[1], list(DDD.columns)))
+           DDD.columns = list(map(lambda x: x[1], list(DDD.columns)))
             t1 = list(DDD.columns)[1].upper()
             t2 = list(DDD.columns)[5].upper()
             q = 1
@@ -508,10 +508,10 @@ for ld in LesDates:
                 d['QUARTER'] = q
                 d['TIME_REMAINING'] = row['Time']
                 scores = row['Score'].split('-')
-                d[f'{t1}_SCORE'] = int(scores[0])
-                d[f'{t2}_SCORE'] = int(scores[1])
-                d[f'{t1}_ACTION'] = row[list(DDD.columns)[1]]
-                d[f'{t2}_ACTION'] = row[list(DDD.columns)[5]]
+                d[f'{t1}_SCORE'] = 10#int(scores[0])
+                d[f'{t2}_SCORE'] = 10#int(scores[1])
+                d[f'{t1}_ACTION'] = " "#row[list(DDD.columns)[1]]
+                d[f'{t2}_ACTION'] = " "#row[list(DDD.columns)[5]]
                 if DF is None:
                     DF = pd.DataFrame(columns = list(d.keys()))
                 DF = DF.append(d, ignore_index=True)
@@ -529,8 +529,9 @@ for ld in LesDates:
             ScoreMargin = [0]
             NbAction = len(DF[list(DF)[0]])
             for i in range (0,NbAction):
-                Period.append(DF['QUARTER'][i])
-                Timer.append(EnSecondes(DF['TIME_REMAINING'][i][:-2]))
+                if ':' in DF['TIME_REMAINING'][i][:-2]: 
+                    Period.append(DF['QUARTER'][i])
+                    Timer.append(EnSecondes(DF['TIME_REMAINING'][i][:-2]))
                 # --- boucle pour toujours faire score vainqueur - score loser
                 if DF[list(DF)[4]][NbAction-1]>DF[list(DF)[5]][NbAction-1]:       
                     ScoreMargin.append(DF[list(DF)[4]][i]-DF[list(DF)[5]][i])
