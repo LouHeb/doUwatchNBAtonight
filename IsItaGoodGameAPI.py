@@ -483,7 +483,16 @@ for ld in LesDates:
             LaDate = datetime.strftime(d['DATE'][Game],"%Y-%m-%d")
             Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
             Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
-            df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
+            #df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
+
+            suffix = get_game_suffix(LaDate,Team_Vis,Team_Dom)#.replace('/boxscores', '')
+            print(suffix)
+
+            date = pd.to_datetime(LaDate)
+            print(date)
+            df = get_pbp_helper(suffix)
+            print(df)
+            df = format_df(df)
             print(df)
             # --- Get the Play by play score evolution
             Period = [1]
