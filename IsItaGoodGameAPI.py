@@ -520,23 +520,24 @@ for ld in LesDates:
                     q = 4
                 elif 'OT' in row['Time']:
                     q = row['Time'][0]+'OT'
-                #try:
-                d['QUARTER'] = q
-                d['TIME_REMAINING'] = row['Time']
-                scores = row['Score'].split('-')
-                d[f'{t1}_SCORE'] = int(scores[0])
-                d[f'{t2}_SCORE'] = int(scores[1])
-                d[f'{t1}_ACTION'] = row[list(ddd.columns)[1]]
-                d[f'{t2}_ACTION'] = row[list(ddd.columns)[5]]
-                if df is None:
-                    df = pd.DataFrame(columns = list(d.keys()))
-                df = df.append(d, ignore_index=True)
-                print(df)
-#                except:
-#                    continue
+                try:
+                    d['QUARTER'] = q
+                    d['TIME_REMAINING'] = row['Time']
+                    scores = row['Score'].split('-')
+                    d[f'{t1}_SCORE'] = int(scores[0])
+                    d[f'{t2}_SCORE'] = int(scores[1])
+                    d[f'{t1}_ACTION'] = row[list(ddd.columns)[1]]
+                    d[f'{t2}_ACTION'] = row[list(ddd.columns)[5]]
+                    if df is None:
+                        df = pd.DataFrame(columns = list(d.keys()))
+                    df = df.append(d, ignore_index=True)
+                    print(df)
+                except:
+                    continue
             print('ok')
             print(df)
             print('ok2')
+
             df = format_df(df)
             print(df)
             # --- Get the Play by play score evolution
