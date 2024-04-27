@@ -500,19 +500,16 @@ for ld in LesDates:
                 table = soup.find('table', attrs={'id': 'pbp'})
                 print(pd.read_html(str(table))[0])
 
-            df = get_pbp_helper(suffix)
-            print(df)
+            ddd = get_pbp_helper(suffix)
+            print(ddd)
 
-            
-            df.columns = list(map(lambda x: x[1], list(df.columns)))
-            print(df)
-            t1 = list(df.columns)[1].upper()
-            print(t1)
-            t2 = list(df.columns)[5].upper()
-            print(t2)
+                    
+            ddd.columns = list(map(lambda x: x[1], list(ddd.columns)))
+            t1 = list(df1.columns)[1].upper()
+            t2 = list(df1.columns)[5].upper()
             q = 1
-            dfz = None
-            for index, row in df.iterrows():
+            df = None
+            for index, row in ddd.iterrows():
                 d = {'QUARTER': float('nan'), 'TIME_REMAINING': float('nan'), f'{t1}_ACTION': float('nan'), f'{t2}_ACTION': float('nan'), f'{t1}_SCORE': float('nan'), f'{t2}_SCORE': float('nan')}
                 if row['Time']=='2nd Q':
                     q = 2
@@ -528,15 +525,15 @@ for ld in LesDates:
                     scores = row['Score'].split('-')
                     d[f'{t1}_SCORE'] = int(scores[0])
                     d[f'{t2}_SCORE'] = int(scores[1])
-                    d[f'{t1}_ACTION'] = row[list(df.columns)[1]]
-                    d[f'{t2}_ACTION'] = row[list(df.columns)[5]]
-                    if dfz is None:
-                        dfz = pd.DataFrame(columns = list(d.keys()))
-                    dfz = dfz.append(d, ignore_index=True)
+                    d[f'{t1}_ACTION'] = row[list(ddd.columns)[1]]
+                    d[f'{t2}_ACTION'] = row[list(ddd.columns)[5]]
+                    if df is None:
+                        df = pd.DataFrame(columns = list(d.keys()))
+                    df = df.append(d, ignore_index=True)
                 except:
                     continue
-            print(dfz)
 
+            print(df)
 
             df = format_df(df)
             #print(df)
