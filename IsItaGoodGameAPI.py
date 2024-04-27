@@ -518,6 +518,7 @@ for ld in LesDates:
                     if Ledf is None:
                         Ledf = pd.DataFrame(columns = list(d.keys()))
                     Ledf = Ledf.append(d, ignore_index=True)
+                print(Ledf)
                 except:
                     continue
             
