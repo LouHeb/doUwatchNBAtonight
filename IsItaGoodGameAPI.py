@@ -533,7 +533,6 @@ for ld in LesDates:
                     df = df.append(d, ignore_index=True)
                 except:
                     continue
-            return df
 
             print(df)
 
