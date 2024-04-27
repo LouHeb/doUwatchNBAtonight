@@ -498,7 +498,7 @@ for ld in LesDates:
             if r.status_code==200:
                 soup = BeautifulSoup(r.content, 'html.parser')
                 table = soup.find('table', attrs={'id': 'pbp'})
-                return pd.read_html(str(table))[0]
+                print(pd.read_html(str(table))[0])
 
             df = get_pbp_helper(suffix)
             print(df)
