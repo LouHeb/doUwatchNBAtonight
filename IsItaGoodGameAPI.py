@@ -508,14 +508,14 @@ for ld in LesDates:
                 d['QUARTER'] = q
                 d['TIME_REMAINING'] = row['Time']
                 scores = row['Score'].split('-')
-                d[f'{t1}_SCORE'] = 10#int(scores[0])
-                d[f'{t2}_SCORE'] = 10#int(scores[1])
-                d[f'{t1}_ACTION'] = " "#row[list(DDD.columns)[1]]
-                d[f'{t2}_ACTION'] = " "#row[list(DDD.columns)[5]]
+                d[f'{t1}_SCORE'] = int(scores[0])
+                d[f'{t2}_SCORE'] = int(scores[1])
+                d[f'{t1}_ACTION'] = row[list(DDD.columns)[1]]
+                d[f'{t2}_ACTION'] = row[list(DDD.columns)[5]]
                 if DF is None:
                     DF = pd.DataFrame(columns = list(d.keys()))
                 DF = DF.append(d, ignore_index=True)
-                
+
                 print('----------')
                 print(DF)
                 print('##########')
