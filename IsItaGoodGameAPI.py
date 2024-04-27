@@ -511,6 +511,7 @@ for ld in LesDates:
             q = 1
             df = None
             for index, row in ddd.iterrows():
+                print(row['Time'])
                 d = {'QUARTER': float('nan'), 'TIME_REMAINING': float('nan'), f'{t1}_ACTION': float('nan'), f'{t2}_ACTION': float('nan'), f'{t1}_SCORE': float('nan'), f'{t2}_SCORE': float('nan')}
                 if row['Time']=='2nd Q':
                     q = 2
