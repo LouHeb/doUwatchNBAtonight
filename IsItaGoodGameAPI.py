@@ -532,8 +532,8 @@ for ld in LesDates:
                         df = pd.DataFrame(columns = list(d.keys()))
                     df = df.append(d, ignore_index=True)
                     print(df)
-                except:
-                    continue
+#                except:
+#                    continue
             print('ok')
             print(df)
 
