@@ -505,8 +505,9 @@ for ld in LesDates:
 
                     
             ddd.columns = list(map(lambda x: x[1], list(ddd.columns)))
-            t1 = list(df1.columns)[1].upper()
-            t2 = list(df1.columns)[5].upper()
+            t1 = list(ddd.columns)[1].upper()
+            t2 = list(ddd.columns)[5].upper()
+            print(t1)
             q = 1
             df = None
             for index, row in ddd.iterrows():
@@ -532,6 +533,7 @@ for ld in LesDates:
                     df = df.append(d, ignore_index=True)
                 except:
                     continue
+            return df
 
             print(df)
 
