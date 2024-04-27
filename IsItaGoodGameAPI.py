@@ -490,6 +490,16 @@ for ld in LesDates:
 
             date = pd.to_datetime(LaDate)
             print(date)
+
+
+            r = get(f'https://www.basketball-reference.com/boxscores/pbp{suffix}')
+            print(r.status_code)
+
+            if r.status_code==200:
+                soup = BeautifulSoup(r.content, 'html.parser')
+                table = soup.find('table', attrs={'id': 'pbp'})
+                return pd.read_html(str(table))[0]
+
             df = get_pbp_helper(suffix)
             print(df)
             df = format_df(df)
