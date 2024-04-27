@@ -504,23 +504,23 @@ for ld in LesDates:
                     q = 4
                 elif 'OT' in row['Time']:
                     q = row['Time'][0]+'OT'
-                # try:
-                d['QUARTER'] = q
-                d['TIME_REMAINING'] = row['Time']
-                scores = row['Score'].split('-')
-                d[f'{t1}_SCORE'] = int(scores[0])
-                d[f'{t2}_SCORE'] = int(scores[1])
-                d[f'{t1}_ACTION'] = row[list(DDD.columns)[1]]
-                d[f'{t2}_ACTION'] = row[list(DDD.columns)[5]]
-                if DF is None:
-                    DF = pd.DataFrame(columns = list(d.keys()))
-                DF = DF.append(d, ignore_index=True)
+                try:
+                    d['QUARTER'] = q
+                    d['TIME_REMAINING'] = row['Time']
+                    scores = row['Score'].split('-')
+                    d[f'{t1}_SCORE'] = int(scores[0])
+                    d[f'{t2}_SCORE'] = int(scores[1])
+                    d[f'{t1}_ACTION'] = row[list(DDD.columns)[1]]
+                    d[f'{t2}_ACTION'] = row[list(DDD.columns)[5]]
+                    if DF is None:
+                        DF = pd.DataFrame(columns = list(d.keys()))
+                    DF = DF.append(d, ignore_index=True)
 
-                print('----------')
-                print(DF)
-                print('##########')
-                # except:
-                #     continue
+                    print('----------')
+                    print(DF)
+                    print('##########')
+                except:
+                    continue
             
             print(DF)
             
