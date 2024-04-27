@@ -535,7 +535,7 @@ for ld in LesDates:
                     dfz = dfz.append(d, ignore_index=True)
                 except:
                     continue
-            print(df)
+            print(dfz)
 
 
             df = format_df(df)
