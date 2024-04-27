@@ -514,7 +514,7 @@ for ld in LesDates:
                 d[f'{t2}_ACTION'] = " "#row[list(DDD.columns)[5]]
                 if DF is None:
                     DF = pd.DataFrame(columns = list(d.keys()))
-                DF = DF.append(d, ignore_index=True)
+                DF = DF.concat(d, ignore_index=True)
                 print('----------')
                 print(DF)
                 print('##########')
