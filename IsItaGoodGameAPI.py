@@ -483,76 +483,22 @@ for ld in LesDates:
             LaDate = datetime.strftime(d['DATE'][Game],"%Y-%m-%d")
             Team_Vis = TeamsAbbr_inv[d['VISITOR'][Game]]
             Team_Dom = TeamsAbbr_inv[d['HOME'][Game]]
-            #df = Functions[league][1](LaDate,Team_Vis,Team_Dom)
-
-            suffix = get_game_suffix(LaDate,Team_Vis,Team_Dom)#.replace('/boxscores', '')
-            print(suffix)
-
-            date = pd.to_datetime(LaDate)
-            print(date)
-
-
-            r = get(f'https://www.basketball-reference.com/boxscores/pbp{suffix}')
-            print(r.status_code)
-
-            if r.status_code==200:
-                soup = BeautifulSoup(r.content, 'html.parser')
-                table = soup.find('table', attrs={'id': 'pbp'})
-                print(pd.read_html(str(table))[0])
-
-            ddd = get_pbp_helper(suffix)
-            print(ddd)
-
-                    
-            ddd.columns = list(map(lambda x: x[1], list(ddd.columns)))
-            t1 = list(ddd.columns)[1].upper()
-            t2 = list(ddd.columns)[5].upper()
-            print(t1)
-            q = 1
-            df = None
-            for index, row in ddd.iterrows():
-                d = {'QUARTER': float('nan'), 'TIME_REMAINING': float('nan'), f'{t1}_ACTION': float('nan'), f'{t2}_ACTION': float('nan'), f'{t1}_SCORE': float('nan'), f'{t2}_SCORE': float('nan')}
-                if row['Time']=='2nd Q':
-                    q = 2
-                elif row['Time']=='3rd Q':
-                    q = 3
-                elif row['Time']=='4th Q':
-                    q = 4
-                elif 'OT' in row['Time']:
-                    q = row['Time'][0]+'OT'
-                try:
-                    d['QUARTER'] = q
-                    d['TIME_REMAINING'] = row['Time']
-                    scores = row['Score'].split('-')
-                    d[f'{t1}_SCORE'] = int(scores[0])
-                    d[f'{t2}_SCORE'] = int(scores[1])
-                    d[f'{t1}_ACTION'] = row[list(ddd.columns)[1]]
-                    d[f'{t2}_ACTION'] = row[list(ddd.columns)[5]]
-                    if df is None:
-                        df = pd.DataFrame(columns = list(d.keys()))
-                    df = df.append(d, ignore_index=True)
-                    print(df)
-                except:
-                    continue
-            print('ok')
-            print(df)
-            print('ok2')
-
-            df = format_df(df)
-            print(df)
+            Ledf = Functions[league][1](LaDate,Team_Vis,Team_Dom)
+            print(Ledf)
+            
             # --- Get the Play by play score evolution
             Period = [1]
             Timer = [aQT[league]*60]
             ScoreMargin = [0]
-            NbAction = len(df[list(df)[0]])
+            NbAction = len(Ledf[list(Ledf)[0]])
             for i in range (0,NbAction):
-                Period.append(df['QUARTER'][i])
-                Timer.append(EnSecondes(df['TIME_REMAINING'][i][:-2]))
+                Period.append(Ledf['QUARTER'][i])
+                Timer.append(EnSecondes(Ledf['TIME_REMAINING'][i][:-2]))
                 # --- boucle pour toujours faire score vainqueur - score loser
-                if df[list(df)[4]][NbAction-1]>df[list(df)[5]][NbAction-1]:       
-                    ScoreMargin.append(df[list(df)[4]][i]-df[list(df)[5]][i])
+                if Ledf[list(Ledf)[4]][NbAction-1]>Ledf[list(Ledf)[5]][NbAction-1]:       
+                    ScoreMargin.append(Ledf[list(Ledf)[4]][i]-Ledf[list(Ledf)[5]][i])
                 else :
-                    ScoreMargin.append(df[list(df)[5]][i]-df[list(df)[4]][i])
+                    ScoreMargin.append(Ledf[list(Ledf)[5]][i]-Ledf[list(Ledf)[4]][i])
             Period.append(Period[-1])
             Timer.append(0)
             ScoreMargin.append(ScoreMargin[-1])
