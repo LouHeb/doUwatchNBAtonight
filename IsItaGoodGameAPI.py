@@ -502,8 +502,44 @@ for ld in LesDates:
 
             df = get_pbp_helper(suffix)
             print(df)
-            df = format_df(df)
+
+            
+            df.columns = list(map(lambda x: x[1], list(df.columns)))
             print(df)
+            t1 = list(df.columns)[1].upper()
+            print(t1)
+            t2 = list(df.columns)[5].upper()
+            print(t2)
+            q = 1
+            dfz = None
+            for index, row in df.iterrows():
+                d = {'QUARTER': float('nan'), 'TIME_REMAINING': float('nan'), f'{t1}_ACTION': float('nan'), f'{t2}_ACTION': float('nan'), f'{t1}_SCORE': float('nan'), f'{t2}_SCORE': float('nan')}
+                if row['Time']=='2nd Q':
+                    q = 2
+                elif row['Time']=='3rd Q':
+                    q = 3
+                elif row['Time']=='4th Q':
+                    q = 4
+                elif 'OT' in row['Time']:
+                    q = row['Time'][0]+'OT'
+                try:
+                    d['QUARTER'] = q
+                    d['TIME_REMAINING'] = row['Time']
+                    scores = row['Score'].split('-')
+                    d[f'{t1}_SCORE'] = int(scores[0])
+                    d[f'{t2}_SCORE'] = int(scores[1])
+                    d[f'{t1}_ACTION'] = row[list(df.columns)[1]]
+                    d[f'{t2}_ACTION'] = row[list(df.columns)[5]]
+                    if dfz is None:
+                        dfz = pd.DataFrame(columns = list(d.keys()))
+                    dfz = dfz.append(d, ignore_index=True)
+                except:
+                    continue
+            print(df)
+
+
+            df = format_df(df)
+            #print(df)
             # --- Get the Play by play score evolution
             Period = [1]
             Timer = [aQT[league]*60]
