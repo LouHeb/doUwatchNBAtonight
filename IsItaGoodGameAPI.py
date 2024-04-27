@@ -511,7 +511,6 @@ for ld in LesDates:
             q = 1
             df = None
             for index, row in ddd.iterrows():
-                print(row['Time'])
                 d = {'QUARTER': float('nan'), 'TIME_REMAINING': float('nan'), f'{t1}_ACTION': float('nan'), f'{t2}_ACTION': float('nan'), f'{t1}_SCORE': float('nan'), f'{t2}_SCORE': float('nan')}
                 if row['Time']=='2nd Q':
                     q = 2
@@ -529,6 +528,7 @@ for ld in LesDates:
                     d[f'{t2}_SCORE'] = int(scores[1])
                     d[f'{t1}_ACTION'] = row[list(ddd.columns)[1]]
                     d[f'{t2}_ACTION'] = row[list(ddd.columns)[5]]
+                    print(d)
                     if df is None:
                         df = pd.DataFrame(columns = list(d.keys()))
                     df = df.append(d, ignore_index=True)
