@@ -456,7 +456,7 @@ for ld in LesDates:
     file = open("index.md","w") 
     file.write(lines[0][0]+'\n')
 
-    if int(datetime.strftime(ld,"%m")) not in [5,6,7,8,9]: Leagues = ['NBA'] # on s'interesse only a la NBA if not btw May and Sept    
+    if int(datetime.strftime(ld,"%m")) not in [5,6,7,8,9,10]: Leagues = ['NBA'] # on s'interesse only a la NBA if not btw May and Sept    
     for league in Leagues:
         Today = ld
         
