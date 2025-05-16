@@ -41,7 +41,7 @@ LOGOS = {'NBA':{'BOS':'https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Cel
 'WNBA':{"ATL":"https://upload.wikimedia.org/wikipedia/en/5/54/Atlanta_Dream_logo.svg","CHI":"https://upload.wikimedia.org/wikipedia/en/f/fc/Chicago_Sky_logo.svg","CON":"https://upload.wikimedia.org/wikipedia/en/0/09/Connecticut_Sun_logo.svg",
 "DAL":"https://upload.wikimedia.org/wikipedia/en/9/95/Dallas_Wings_logo.svg","IND":"https://upload.wikimedia.org/wikipedia/en/5/54/Indiana_Fever_logo.svg","LAS":"https://upload.wikimedia.org/wikipedia/en/9/9f/Los_Angeles_Sparks_logo.svg",
 "LVA":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Las_Vegas_Aces_logo.svg/800px-Las_Vegas_Aces_logo.svg.png","MIN":"https://upload.wikimedia.org/wikipedia/en/7/75/Minnesota_Lynx_logo.svg","NYL":"https://upload.wikimedia.org/wikipedia/en/a/a1/New_York_Liberty_logo.svg",
-"PHO":"https://upload.wikimedia.org/wikipedia/en/a/a6/Phoenix_Mercury_logo.svg","SEA":"https://upload.wikimedia.org/wikipedia/en/a/a0/Seattle_Storm_%282021%29_logo.svg","WAS":"https://upload.wikimedia.org/wikipedia/en/7/79/Washington_Mystics_logo.svg"}
+"PHO":"https://upload.wikimedia.org/wikipedia/en/a/a6/Phoenix_Mercury_logo.svg","SEA":"https://upload.wikimedia.org/wikipedia/en/a/a0/Seattle_Storm_%282021%29_logo.svg","WAS":"https://upload.wikimedia.org/wikipedia/en/7/79/Washington_Mystics_logo.svg","GSV":"https://upload.wikimedia.org/wikipedia/en/7/79/Golden_State_Valkyries_logo.png"}
 }
 
 TeamsAbbr = {'NBA':{'BOS':'Boston Celtics',
@@ -75,7 +75,7 @@ TeamsAbbr = {'NBA':{'BOS':'Boston Celtics',
 'UTA':'Utah Jazz',
 'WAS':'Washington Wizards'},
 'WNBA':{'ATL':'Atlanta Dream','CHI':'Chicago Sky','DAL':'Dallas Wings','LVA':'Las Vegas Aces','PHO':'Phoenix Mercury','SEA':'Seattle Storm',
-'MIN':'Minnesota Lynx','WAS':'Washington Mystics','LAS':'Los Angeles Sparks','NYL':'New York Liberty','CON':'Connecticut Sun','IND':'Indiana Fever'}}
+'MIN':'Minnesota Lynx','WAS':'Washington Mystics','LAS':'Los Angeles Sparks','NYL':'New York Liberty','CON':'Connecticut Sun','IND':'Indiana Fever','GSV':'Golden State Valkyries'}}
 
 
 aQT = {'NBA':12,'WNBA':10}
